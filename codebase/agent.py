@@ -11,7 +11,7 @@ Hình dạng: WORKFLOW CỐ ĐỊNH có vòng tự kiểm giới hạn (không p
      còn vi phạm: "không xếp được" + gợi ý nới ràng buộc (không xếp bừa)
 Giờ, giá, tổng tiền: chỉ lấy từ công cụ / code, model không được tự nhẩm.
 
-Module của người khác chưa có → dùng bản giả trong stubs.py (spec.md §4 ghi phần nào còn giả).
+Công cụ + validator luôn là bản thật. Chỉ planner dùng bản giả trong stubs.py khi MODEL_PROVIDER=fake.
 """
 import re
 
@@ -23,18 +23,9 @@ if PLANNER_GIA:
     from stubs import trich_rang_buoc, xep_lich, sua_lich
 else:
     from planner import trich_rang_buoc, xep_lich, sua_lich
-try:  # Thành — codebase/tools.py
-    from tools import tra_diem_choi, tra_lich_show, tra_thoi_tiet
-    TOOLS_GIA = False
-except ImportError:
-    from stubs import tra_diem_choi, tra_lich_show, tra_thoi_tiet
-    TOOLS_GIA = True
-try:  # Thành — codebase/validator.py
-    from validator import kiem_lich_trinh, tinh_tong_tien
-    VALIDATOR_GIA = False
-except ImportError:
-    from stubs import kiem_lich_trinh, tinh_tong_tien
-    VALIDATOR_GIA = True
+# Thành — codebase/tools.py, codebase/validator.py: luôn dùng bản thật, lỗi import thì báo ngay (không lặng lẽ dùng stub).
+from tools import tra_diem_choi, tra_lich_show, tra_thoi_tiet
+from validator import kiem_lich_trinh, tinh_tong_tien
 
 MAX_SUA = 3  # số lần tối đa cho model sửa lịch sau lần xếp đầu
 
@@ -60,6 +51,8 @@ _GOI_Y_NOI = {
     "ngoai_troi_khi_mua": "ưu tiên trò trong nhà lúc mưa, hoặc dời trò ngoài trời sang giờ khác",
     "truoc_gio_mo": "bắt đầu muộn hơn",
     "diem_khong_ton_tai": "chọn trò có trong danh sách của công viên",
+    "diem_dong_dot_xuat": "bỏ trò đang tạm đóng hôm đó, chọn trò khác cùng loại",
+    "show_huy_dot_xuat": "bỏ show đã bị huỷ hôm đó, chọn show hoặc suất khác",
 }
 
 
@@ -138,7 +131,7 @@ def answer(text: str) -> dict:
         return _hoi_lai(rb["thieu"])  # G10: không chắc → hỏi lại một câu, không đoán
 
     # 2. Dữ liệu từ công cụ chỉ đọc
-    du_lieu = {"diem": tra_diem_choi(), "show": tra_lich_show(rb["ngay"]) if TOOLS_GIA else tra_lich_show(), "thoi_tiet": tra_thoi_tiet(rb["ngay"])}
+    du_lieu = {"diem": tra_diem_choi(), "show": tra_lich_show(), "thoi_tiet": tra_thoi_tiet(rb["ngay"])}
 
     # 3–4. Xếp → kiểm bằng code → sửa, có giới hạn
     lich = xep_lich(rb, du_lieu) or []
