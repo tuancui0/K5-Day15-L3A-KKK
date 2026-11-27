@@ -107,6 +107,23 @@ WEATHER = {
     "2026-12-05": {"mua_tu": "10:00", "mua_den": "12:00"},
 }
 
+# --- Dữ liệu "bẩn" v2 (CP3) — dựa trên bằng chứng phỏng vấn P1, P3: lỡ show vì
+# không biết trước show bị huỷ, đến trò mới biết đóng bảo trì đột xuất. Khác
+# "huy_khi_mua"/giờ đóng cố định: đây là sự cố phát sinh riêng cho 1 ngày cụ thể,
+# không báo trước trong giờ mở/đóng bình thường của park.json.
+# diem_dong: điểm chơi bị đóng cả ngày đó (bảo trì/sự cố) dù park.json ghi vẫn mở.
+# show_huy: show bị huỷ ngày đó (sự cố kỹ thuật) dù lịch show (park.json) vẫn ghi diễn.
+CLOSURES = {
+    "2026-12-06": {
+        "diem_dong": ["D09"],   # Máng trượt cao tốc — bảo trì đột xuất, không báo trước
+        "show_huy": [],
+    },
+    "2026-12-07": {
+        "diem_dong": [],
+        "show_huy": ["S03"],    # Múa rối nước — huỷ vì sự cố kỹ thuật, không phải do mưa
+    },
+}
+
 
 def _sinh_toa_do():
     """Gán toạ độ (m) cho mỗi điểm — các điểm cùng khu đứng gần nhau hơn, dùng seed=42.
@@ -150,6 +167,9 @@ def main():
     with open(os.path.join(DATA_DIR, "weather.json"), "w", encoding="utf-8") as f:
         json.dump(WEATHER, f, ensure_ascii=False, indent=2)
 
+    with open(os.path.join(DATA_DIR, "closures.json"), "w", encoding="utf-8") as f:
+        json.dump(CLOSURES, f, ensure_ascii=False, indent=2)
+
     rows = _sinh_travel_csv()
     with open(os.path.join(DATA_DIR, "travel.csv"), "w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
@@ -157,7 +177,9 @@ def main():
         w.writerows(rows)
 
     print("Đã sinh: data/park.json (%d điểm, %d show), data/weather.json (%d ngày mưa), "
-          "data/travel.csv (%d cặp điểm)" % (len(DIEM), len(SHOW), len(WEATHER), len(rows)))
+          "data/closures.json (%d ngày có sự cố đóng/huỷ đột xuất), "
+          "data/travel.csv (%d cặp điểm)"
+          % (len(DIEM), len(SHOW), len(WEATHER), len(CLOSURES), len(rows)))
 
 
 if __name__ == "__main__":

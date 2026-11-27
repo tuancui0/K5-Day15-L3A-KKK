@@ -44,6 +44,21 @@ def _travel():
     return _cache["travel"]
 
 
+def _closures():
+    """data/closures.json (v2, CP3) — điểm đóng bảo trì / show huỷ đột xuất theo ngày,
+    KHÁC với giờ đóng cố định (park.json) hay huỷ khi mưa (weather.json). Dùng nội bộ
+    bởi validator.py để bắt lịch xếp vào điểm/show đang gặp sự cố ngày đó.
+    File không tồn tại (bản dữ liệu cũ) vẫn chạy được — coi như không ngày nào có sự cố."""
+    if "closures" not in _cache:
+        path = os.path.join(_DATA_DIR, "closures.json")
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                _cache["closures"] = json.load(f)
+        else:
+            _cache["closures"] = {}
+    return _cache["closures"]
+
+
 @tool
 def tra_diem_choi(the_loai: str = None, khu: str = None) -> list:
     """Tra danh sách điểm chơi trong công viên, lọc theo thể loại và/hoặc khu (tuỳ chọn).

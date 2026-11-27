@@ -78,6 +78,22 @@ def test_ngoai_troi_khi_mua():
     assert any(v["loai"] == "ngoai_troi_khi_mua" for v in vi_pham)
 
 
+def test_diem_dong_dot_xuat():
+    # 2026-12-06: D09 (Máng trượt cao tốc) đóng bảo trì đột xuất — xem data/closures.json (v2)
+    rb = dict(RANG_BUOC_OK, ngay="2026-12-06")
+    lich = [{"diem_id": "D09", "bat_dau": "09:15", "ket_thuc": "09:17", "ly_do": "a"}]
+    vi_pham = kiem_lich_trinh(lich, rb)
+    assert any(v["loai"] == "diem_dong_dot_xuat" for v in vi_pham)
+
+
+def test_show_huy_dot_xuat():
+    # 2026-12-07: S03 (Múa rối nước) huỷ đột xuất, không liên quan mưa — xem data/closures.json (v2)
+    rb = dict(RANG_BUOC_OK, ngay="2026-12-07")
+    lich = [{"show_id": "S03", "bat_dau": "13:00", "ket_thuc": "13:45", "ly_do": "a"}]
+    vi_pham = kiem_lich_trinh(lich, rb)
+    assert any(v["loai"] == "show_huy_dot_xuat" for v in vi_pham)
+
+
 def test_tinh_tong_tien():
     tong = tinh_tong_tien(LICH_SACH, RANG_BUOC_OK)
     assert tong["tong"] == tong["ve_vao_cong"] + tong["diem"]

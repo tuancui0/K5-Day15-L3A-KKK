@@ -10,13 +10,20 @@ Hợp đồng (PHAN-CONG.md mục 2):
     rang_buoc = {"ngay", "gio_bat_dau", "gio_ket_thuc", "nguoi_lon", "tre_em": [{"tuoi","chieu_cao_cm"}],
                  "ngan_sach", "so_thich", "thieu", "ngoai_pham_vi"}
 
-9 loại vi phạm: truoc_gio_mo · sau_gio_dong · chong_gio · khong_kip_di · vuot_ngan_sach ·
-tre_khong_du_chieu_cao · ngoai_troi_khi_mua · show_sai_gio · diem_khong_ton_tai
+11 loại vi phạm: truoc_gio_mo · sau_gio_dong · chong_gio · khong_kip_di · vuot_ngan_sach ·
+tre_khong_du_chieu_cao · ngoai_troi_khi_mua · show_sai_gio · diem_khong_ton_tai ·
+diem_dong_dot_xuat · show_huy_dot_xuat
+
+2 loại cuối (v2, CP3) đọc data/closures.json — điểm bảo trì / show huỷ sự cố phát sinh
+riêng cho 1 ngày, khác giờ đóng cố định hay huỷ khi mưa. Lấy từ bằng chứng phỏng vấn
+P1 ("đến nơi mới biết bé không đủ chiều cao") + P3 ("qua tới thủy cung thì show đang
+diễn rồi") — agent không biết trước sự cố qua 4 công cụ hiện có, validator là lưới
+chặn cuối cùng bắt lịch lỡ xếp vào điểm/show đang gặp sự cố.
 
 Hàm này KHÔNG phải công cụ của agent (không @tool) — agent gọi trực tiếp trong vòng tự kiểm
 (agent.py), eval/auto_grade.py gọi lại để chấm độc lập với model.
 """
-from tools import _park, _weather, _travel  # dùng lại dữ liệu đã nạp, không gọi qua @tool
+from tools import _park, _weather, _travel, _closures  # dùng lại dữ liệu đã nạp, không gọi qua @tool
 
 
 def _phut(hhmm):
@@ -54,11 +61,14 @@ def _muc_vi_tri_va_khung_gio(muc, idx_diem, idx_show):
 
 
 def kiem_lich_trinh(lich, rang_buoc):
-    """Kiểm một lịch trình theo 9 loại vi phạm. Trả list rỗng nếu lịch sạch."""
+    """Kiểm một lịch trình theo 11 loại vi phạm. Trả list rỗng nếu lịch sạch."""
     idx_diem, idx_show = _index_diem(), _index_show()
     weather = _weather().get(rang_buoc.get("ngay"), {})
     mua_tu = _phut(weather["mua_tu"]) if weather else None
     mua_den = _phut(weather["mua_den"]) if weather else None
+    sucos = _closures().get(rang_buoc.get("ngay"), {})
+    diem_dong_hom_nay = set(sucos.get("diem_dong", []))
+    show_huy_hom_nay = set(sucos.get("show_huy", []))
 
     vi_pham = []
     muc_hop_le = []  # (muc, diem, bd, kt) — chỉ các mục tra được điểm, dùng cho chong_gio/khong_kip_di
@@ -83,7 +93,15 @@ def kiem_lich_trinh(lich, rang_buoc):
                 vi_pham.append({"loai": "ngoai_troi_khi_mua",
                                 "chi_tiet": "Show %s ngoài trời, huỷ khi mưa — trùng khoảng mưa %s-%s"
                                             % (ten, weather["mua_tu"], weather["mua_den"])})
+            if muc["show_id"] in show_huy_hom_nay:
+                vi_pham.append({"loai": "show_huy_dot_xuat",
+                                "chi_tiet": "Show %s bị huỷ đột xuất ngày %s (sự cố kỹ thuật, không báo trước)"
+                                            % (ten, rang_buoc.get("ngay"))})
         else:
+            if muc["diem_id"] in diem_dong_hom_nay:
+                vi_pham.append({"loai": "diem_dong_dot_xuat",
+                                 "chi_tiet": "%s đóng bảo trì đột xuất ngày %s, không mở cửa"
+                                             % (ten, rang_buoc.get("ngay"))})
             if bd < _phut(diem["mo"]):
                 vi_pham.append({"loai": "truoc_gio_mo",
                                  "chi_tiet": "%s mở cửa %s, lịch xếp %s" % (ten, diem["mo"], muc["bat_dau"])})
