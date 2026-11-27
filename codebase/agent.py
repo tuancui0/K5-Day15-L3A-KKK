@@ -15,14 +15,14 @@ Module của người khác chưa có → dùng bản giả trong stubs.py (spec
 """
 import re
 
+from ai import MODEL_PROVIDER
 from tracing import note
 
-try:  # Trường — codebase/planner.py
-    from planner import trich_rang_buoc, xep_lich, sua_lich
-    PLANNER_GIA = False
-except ImportError:
+PLANNER_GIA = MODEL_PROVIDER == "fake"
+if PLANNER_GIA:
     from stubs import trich_rang_buoc, xep_lich, sua_lich
-    PLANNER_GIA = True
+else:
+    from planner import trich_rang_buoc, xep_lich, sua_lich
 try:  # Thành — codebase/tools.py
     from tools import tra_diem_choi, tra_lich_show, tra_thoi_tiet
     TOOLS_GIA = False
@@ -84,7 +84,12 @@ def _tu_choi(ly_do):
 
 def _hoi_lai(thieu):
     note("hỏi lại: %s" % ", ".join(thieu))
-    cau = ", ".join(_HOI_LAI.get(k, k) for k in thieu)
+    cau = ", ".join(
+        "chiều cao của từng bé (để kiểm điều kiện trò chơi và giá vé)"
+        if not PLANNER_GIA and k == "chieu_cao_hoac_tuoi_tre"
+        else _HOI_LAI.get(k, k)
+        for k in thieu
+    )
     text = "Để xếp lịch đúng, bạn cho mình biết thêm: %s nhé?" % cau
     return {"output": text + "\n" + _the("hoi_lai", thieu=",".join(thieu))}
 
@@ -133,11 +138,13 @@ def answer(text: str) -> dict:
         return _hoi_lai(rb["thieu"])  # G10: không chắc → hỏi lại một câu, không đoán
 
     # 2. Dữ liệu từ công cụ chỉ đọc
-    du_lieu = {"diem": tra_diem_choi(), "show": tra_lich_show(rb["ngay"]), "thoi_tiet": tra_thoi_tiet(rb["ngay"])}
+    du_lieu = {"diem": tra_diem_choi(), "show": tra_lich_show(rb["ngay"]) if TOOLS_GIA else tra_lich_show(), "thoi_tiet": tra_thoi_tiet(rb["ngay"])}
 
     # 3–4. Xếp → kiểm bằng code → sửa, có giới hạn
     lich = xep_lich(rb, du_lieu) or []
-    vi_pham = kiem_lich_trinh(lich, rb) if lich else [{"loai": "khong_kip_di", "chi_tiet": "không còn trò nào vừa khung giờ"}]
+    vi_pham = kiem_lich_trinh(lich, rb)
+    if not lich and not vi_pham:
+        vi_pham = [{"loai": "khong_kip_di", "chi_tiet": "không còn trò nào vừa khung giờ"}]
     so_lan_sua = 0
     while vi_pham and lich and so_lan_sua < MAX_SUA:
         so_lan_sua += 1

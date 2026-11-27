@@ -42,28 +42,56 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 - **Chatbot chung (ChatGPT, Gemini)** hỏi "đi khu vui chơi X nên chơi gì": đáng học · nhập bằng câu tự nhiên, không cần form · đáng né · tự nhẩm giờ / giá, có thể nói sai giờ mở cửa, không kiểm chồng giờ · mình khác · giờ, giá, tổng tiền chỉ lấy từ dữ liệu và được **kiểm bằng code** trước khi đưa cho khách.
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
-- **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả):
-- Không làm (≥3 điều):
-- **Sơ đồ** (ảnh / Mermaid / draw.io): [chèn ở đây]
-- **Hình dạng:** [ ] workflow cố định · [ ] một agent · [ ] nhiều agent — 2 dòng lý do, và vì sao **không** chọn hình dạng phức tạp hơn:
-- **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
 
-  | Công cụ | Input | Output | Tác động ra ngoài? |
-  |---|---|---|---|
-  |  |  |  |  |
+**Lát cắt.** Một phụ huynh đưa 1–2 con nhỏ đi Công viên Mẫu nhập ngày đi, khung giờ, thành phần gia đình, ngân sách và sở thích để model đề xuất thứ tự điểm chơi và suất show, qua đó gia đình nhận lịch đã kiểm kèm tổng tiền và lý do chọn hoặc biết thông tin cần bổ sung hay ràng buộc cần nới.
 
-- **Mức tự động:** [ ] AI gợi ý, người quyết · [ ] AI tự làm khi chắc, chuyển người khi không · [ ] AI tự làm — lý do (sai thì ai chịu gì, sửa đắt hay rẻ):
-- **Chỗ chặn rủi ro** (rủi ro lớn nhất của lát cắt bị chặn ở đâu, bằng gì):
-- **Chỗ người duyệt** (việc AI không được tự làm):
-- **Nguyên tắc thiết kế** (≥3, bắt buộc G10):
+**Phạm vi.** Chỉ lập lịch trong một ngày từ dữ liệu Công viên Mẫu. Đặt vé, thanh toán, hoàn tiền và xử lý thông tin thẻ hoặc đăng nhập thuộc kênh chính thức của công viên. Dữ liệu mô phỏng dùng cho bài lab và có thể khác điều kiện ở công viên thật.
 
-  | Nguyên tắc | Chỗ cụ thể trên sơ đồ / trong bản chạy thử |
-  |---|---|
-  | G10 — thu hẹp phạm vi khi không chắc |  |
-  |  |  |
-  |  |  |
+```mermaid
+flowchart TD
+    A[Phụ huynh gửi yêu cầu] --> B{Có thông tin thanh toán hoặc đăng nhập?}
+    B -->|Có| X[Từ chối và chỉ kênh chính thức]
+    B -->|Không| C[Planner trích ràng buộc bằng model]
+    C --> D{Yêu cầu ngoài phạm vi?}
+    D -->|Có| X
+    D -->|Không| E{Thiếu hoặc sai ràng buộc?}
+    E -->|Có| H[Hỏi lại một câu về thông tin cần bổ sung]
+    E -->|Không| F[Tra điểm chơi, suất show và thời tiết]
+    F --> G[Model chọn thứ tự điểm chơi và suất show]
+    G --> I[Code tính giờ từ dữ liệu, áp khung giờ và ngân sách]
+    I --> J[Validator kiểm lịch nháp]
+    J -->|Lịch có mục và hợp lệ| K[Code tính tổng tiền rồi in lịch và lý do]
+    J -->|Còn lỗi, có lịch và còn lượt sửa| L[Sửa bằng model với lịch cũ và lỗi validator]
+    L -->|Có phương án| I
+    L -->|Phương án rỗng| N[Báo chưa xếp được và gợi ý nới ràng buộc]
+    J -->|Không có lịch hoặc hết 3 lần sửa| N
+    K --> M[Phụ huynh quyết định có dùng lịch hay sửa yêu cầu]
+```
 
-- Phần nào còn giả (công cụ trả dữ liệu giả, model chế độ giả…) — ghi rõ, không giả làm thật:
+**Workflow cố định, tự kiểm tối đa 3 lần sửa.** Mỗi yêu cầu đi qua cùng các bước trích ràng buộc, tra dữ liệu, xếp và kiểm. Điều này giúp nhóm theo dõi số lần gọi model và kiểm thử từng nhánh. Model tập trung vào hiểu yêu cầu và chọn điểm, thứ tự hoặc suất show. Code chọn công cụ và kiểm điều kiện dừng.
+
+**Dữ liệu và công cụ.** `data/park.json`, `data/weather.json` và `data/travel.csv` là nguồn của bản thử. Dữ liệu được sinh lại bằng seed 42. Xem [data card](data/DATA_CARD.md).
+
+| Công cụ hoặc nguồn | Đầu vào | Đầu ra | Tác động ra ngoài? |
+|---|---|---|---|
+| `tra_diem_choi(the_loai, khu)` | Bộ lọc thể loại và khu tùy chọn | Điểm, giờ mở và đóng cửa, thời lượng, thời gian chờ, giá, chiều cao tối thiểu, trong nhà hay ngoài trời | Chỉ đọc |
+| `tra_lich_show(diem_id)` | Mã điểm tùy chọn. `agent.py` lấy toàn bộ các suất | Mã show, nơi diễn, các suất, thời lượng và quy tắc hủy khi mưa | Chỉ đọc |
+| `tra_thoi_tiet(ngay)` | Ngày `YYYY-MM-DD` | Khung giờ mưa nếu có trong bộ dữ liệu | Chỉ đọc |
+| Ma trận `travel.csv` | Cặp mã điểm, có thể bắt đầu từ `CONG` | Số phút đi bộ. Planner và validator đọc cùng ma trận mà `uoc_thoi_gian_di()` sử dụng | Chỉ đọc |
+| `kiem_lich_trinh(lich, rang_buoc)` và `tinh_tong_tien(lich, rang_buoc)` | Lịch có mã và giờ, kèm ràng buộc của gia đình | Danh sách vi phạm và chi phí vé cổng, trò chơi, tổng tiền | Tính và kiểm trong code |
+
+**Chặn rủi ro.** Lời khách và nội dung dữ liệu được đưa vào model dưới dạng dữ liệu. Planner kiểm kiểu JSON, mã điểm và suất show. Code tính giờ từ lịch show, giờ mở cửa, thời gian chờ và ma trận đi bộ, rồi kiểm khung giờ, mưa, chiều cao và ngân sách. Validator kiểm lịch trước khi trả. Khi thiếu chiều cao, hệ thống hỏi lại vì cả điều kiện chơi và giá vé dùng số đo này.
+
+**Mức tự động và chỗ người duyệt.** AI gợi ý, phụ huynh quyết định. Lịch hiển thị giờ, lý do và cách tính tổng tiền để phụ huynh phát hiện chỗ chưa hợp. Họ có thể đổi khung giờ, điểm ưu tiên hoặc ngân sách rồi gửi yêu cầu mới. Mọi giao dịch được thực hiện riêng trên kênh chính thức.
+
+| Nguyên tắc | Chỗ áp dụng trong sơ đồ |
+|---|---|
+| **G10 — Thu hẹp phạm vi khi không chắc** | Nhánh hỏi lại gom các trường thiếu vào một câu. Hết lượt sửa mà vẫn vướng, hệ thống báo chưa tìm được lịch hợp lệ. |
+| **G1 / G2 — Nói rõ làm được gì và giới hạn** | Nhánh từ chối hướng khách tới kênh chính thức. Bản lịch ghi đây là gợi ý. Phạm vi của bản thử được nêu trong phần giới thiệu ở trên. |
+| **G8 / G9 — Dễ bỏ qua, dễ sửa** | Phụ huynh tự quyết định dùng lịch và có thể gửi lại yêu cầu đã đổi. |
+| **G11 — Giải thích vì sao** | Mỗi mục có lý do chọn. Tổng tiền tách vé cổng và trò thu phí riêng. |
+
+**Bản CP2.** Bản thử dùng dữ liệu công viên giả lập và có hai cấu hình. `MODEL_PROVIDER=fake` chạy planner stub để thử luồng. Để chạy model thật, cấu hình `MODEL_PROVIDER=openai`, `MODEL_NAME=cx/gpt-6-luna`, `MODEL_BASE_URL` và `API_KEY` của nhóm trong `.env` local rồi chạy `python run.py`. Kết quả thử tay trên model thật ghi nhận 15/16 ở lần đầu. Ca vé cổng vượt ngân sách được sửa và thử lại đạt. Ca chỉ muốn xem suất Xiếc thú bị hủy do mưa cho đúng hành vi dừng nhưng lý do còn chung chung.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
