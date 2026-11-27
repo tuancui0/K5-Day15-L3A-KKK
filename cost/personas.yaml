@@ -3,35 +3,40 @@
 # Mọi số phải có nguồn (data / phỏng vấn / khảo sát / quy mô khoá có nguồn) hoặc ghi rõ "(tự ước tính)".
 # Chạy: python run.py simulate --try   (10 phiên, kiểm khung — làm trước CP3)
 #       python run.py simulate         (đủ số phiên dưới đây — bản nộp CP4)
-# Thay mọi dòng "(ví dụ)" bằng số và nguồn của nhóm; simulate nhắc nếu còn sót.
+# v2 (CP3, Thành) — thay khung mẫu bằng persona + nguồn thật của nhóm KKK (Track C, spec.md §2).
 
 sessions: 50        # số phiên mô phỏng — bản nộp ≥50
 seed: 42            # giữ cố định để chạy lại ra cùng chuỗi phiên
 
 users:              # số người dùng thật nếu đưa vào dùng — 3 kịch bản, ở quy mô thật của sản phẩm
-                    # track A: khoá học · track B–F: người dùng của sản phẩm / nhóm nhắm tới, nguồn công khai có link
-  low: 300
-  base: 700
+                    # Track C: không phải khoá học — số gia đình/tháng nếu tích hợp vào web công viên.
+                    # spec.md §2 ghi rõ số gia đình/tháng công khai CHƯA có nguồn (phần của Thành, Chặng 4,
+                    # LUONG-CP3-CP4.md Bước 10 "cost/personas.yaml ... số khách có nguồn"). Số dưới đây là
+                    # mức tự ước tính tạm để khung simulate chạy được trước CP3 — SẼ thay bằng nguồn công khai
+                    # (lượt khách/năm của 1 công viên × tỉ lệ khách đi cùng trẻ nhỏ) ở CP4 Bước 10.
+  low: 200
+  base: 500
   high: 1000
-  source: "(ví dụ) track A — thay bằng số của nhóm. Cơ sở: lớp L3 hơn 700 học viên (README hackathon); thấp, cao: (tự ước tính)"
+  source: "(tự ước tính) chưa có nguồn công khai — cần lượt khách/năm công khai của 1 công viên (vd VinWonders Phú Quốc) × tỉ lệ khách đi cùng trẻ nhỏ; xem spec.md §2 'cần nguồn' và LUONG-CP3-CP4.md Bước 10. Thành sẽ thay số thật ở CP4."
 
-personas:           # ≥3 kiểu người dùng; share cộng lại = 1
-  - name: dung_it
-    share: 0.5              # tỉ lệ người dùng kiểu này
-    uses_per_month: 4       # số phiên / người / tháng
-    turns_per_session: 1    # số lượt hỏi trong một phiên
-    source: "(ví dụ) phỏng vấn P1, P3 — thay bằng nguồn của nhóm"
-  - name: dung_vua
-    share: 0.3
-    uses_per_month: 10
-    turns_per_session: 3
-    source: "(ví dụ) khảo sát n = 24, câu 3"
-  - name: dung_nhieu
-    share: 0.2
-    uses_per_month: 20
-    turns_per_session: 5
-    source: "(ví dụ) data/preclass: đếm số lượt / người — cách đếm ở evidence/data-mining.md"
-# Mỗi lượt hỏi lấy ngẫu nhiên một đầu vào trong eval/benchmark.csv (type thuong và kho).
+personas:           # 3 persona đúng tên dùng trong spec.md §2 (mục 'Số lần / tháng của từng kiểu người dùng')
+  - name: xep_mot_lan
+    share: 0.15              # không ai trong P1–P4 giữ nguyên lịch cả ngày — giữ làm persona tối thiểu (tự ước tính tỉ lệ)
+    uses_per_month: 0.125    # ~1–2 chuyến/năm/gia đình (P3, P4) ≈ 1,5/12 tháng — spec.md §2
+    turns_per_session: 1     # hỏi 1 lần, lấy lịch rồi đi theo, không sửa lại
+    source: "spec.md §2 'xep_mot_lan — xếp 1 lần rồi đi (không ai trong P1–P4 giữ nguyên lịch cả ngày; giữ làm persona tối thiểu)'; tần suất chuyến: P3, P4 (evidence/summary.md)"
+  - name: sua_nhieu_lan
+    share: 0.35              # 3/4 người phỏng vấn (P1, P2, P3) đổi lịch nhiều lần vì lý do chung (không phải mưa) — tự ước tính tỉ lệ từ mẫu n=4
+    uses_per_month: 0.125    # cùng tần suất chuyến ~1–2 lần/năm/gia đình — spec.md §2
+    turns_per_session: 3     # xếp rồi sửa 2–3 lần: P1 ~3 lần, P2 2–3 lần, P3 2 lần
+    source: "spec.md §2 'sua_nhieu_lan — xếp rồi sửa 2–3 lần (P1 ~3 lần, P2 2–3 lần, P3 2 lần)'; evidence/interviews/P1.md, P2.md, P3.md"
+  - name: ngay_mua
+    share: 0.50               # 8/12 người khảo sát đã đi cùng con nhỏ gặp mưa/show huỷ giữa ngày — evidence/summary.md
+    uses_per_month: 0.125    # cùng tần suất chuyến ~1–2 lần/năm/gia đình — spec.md §2
+    turns_per_session: 2     # xếp lúc đầu + xếp lại giữa ngày vì mưa/show huỷ
+    types: [thuong, kho]      # ưu tiên vẫn lấy ngẫu nhiên từ benchmark — câu B07 (mưa), B20/B21 (sự cố đóng/huỷ) đã có trong bộ 25 câu
+    source: "spec.md §2 'ngay_mua — xếp lại giữa ngày vì mưa / show huỷ (P4; 8/12 người khảo sát đã đi gặp mưa / show huỷ)'; evidence/interviews/P4.md, evidence/summary.md"
+# Mỗi lượt hỏi lấy ngẫu nhiên một đầu vào trong eval/benchmark.csv (type thường và khó).
 # Persona hỏi kiểu riêng: thêm vào persona đó
 #     types: [thuong, kho, tu_choi]
 # hoặc
@@ -41,11 +46,11 @@ prices:             # USD / 1 triệu token — chép từ further-reading/model
   - model: gemini-3.1-flash-lite
     input: 0.25
     output: 1.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
+    source: "https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026 — mức rẻ, dùng cho kịch bản chi phí thấp"
   - model: gemini-4-hydrogen
     input: 1.50
     output: 7.50
-    source: "(ví dụ) https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026"
+    source: "https://ai.google.dev/gemini-api/docs/pricing · xem 25/11/2026 — mức mạnh, dùng cho kịch bản chi phí cao"
 
 usd_to_vnd:         # tuỳ chọn: điền thì bản tóm tắt in thêm tiền Việt
   rate:
