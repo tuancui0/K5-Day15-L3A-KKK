@@ -2,9 +2,26 @@
 
 > Làm ở guide bước 3.3. **Nên xong tối Thứ Sáu 27/11 trước khi ngủ** (sáng Thứ Bảy 28/11 không có lớp). Kẹt quá 20 phút thì hỏi ngay.
 
-Mục tiêu: `call_model()` trong `codebase/ai.py` gọi model thật và trả về câu trả lời kèm **số token** đo được. Prompt và luồng là phần nhóm tự viết trong `codebase/agent.py`. File này chỉ lo phần kết nối.
+Mục tiêu: `call_model()` trong `codebase/ai.py` gọi model thật và trả về câu trả lời kèm **số token** đo được. Prompt nằm trong `codebase/planner.py` và luồng chính nằm trong `codebase/agent.py`.
 
 Ba ví dụ dưới đây (OpenAI, Claude, Ollama) **đã chạy với key thật ngày 25/11/2026**: chép vào là chạy.
+
+## Cấu hình nhóm KKK dùng cho CP3
+
+Tạo `.env` ở thư mục gốc và điền URL gateway cùng khóa do nhóm cấp.
+
+```dotenv
+MODEL_PROVIDER=openai
+MODEL_NAME=cx/gpt-6-luna
+MODEL_BASE_URL=<URL gateway của nhóm, kết thúc bằng /v1>
+API_KEY=<khóa của nhóm>
+```
+
+`codebase/ai.py` đã đọc cấu hình và gọi endpoint `/chat/completions`. Khung lấy tên model và số token từ lời gọi thật. Chạy một câu qua `python run.py`, sau đó dùng `python run.py eval --try` và kiểm tra tên model cùng số token vào và ra lớn hơn 0. Lượt thử tạo `eval/run-try.csv` và `traces/run-try.jsonl` tại máy chạy.
+
+Giữ `.env` ở máy chạy. Theo phân công, Kiên chạy lượt eval chính thức sau khi nhóm freeze code.
+
+**Các mục dưới đây là hướng dẫn tham khảo của starter repo.**
 
 ## 1. Điền `.env`
 
