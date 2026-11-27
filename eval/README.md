@@ -50,7 +50,7 @@ python run.py score eval/run-N.csv        # tính % đạt theo cột pass
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | *(chạy trước CP3)* | | | __/__ | | |
+| 1 | `run-1@20261127-234913` | `cx/gpt-6-luna` | `agent.py` + `planner.py` + Data v2 (`53ccde1`), 0 lỗi kỹ thuật | 22/25 | 88,0% | Chưa *(vướng đk cứng #4 ở `B10`)* |
 | 2 | *(chạy trước CP4)* | | | __/__ | | |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
