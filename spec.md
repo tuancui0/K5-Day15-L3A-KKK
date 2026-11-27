@@ -62,11 +62,12 @@ flowchart TD
     D -->|Không| E{Thiếu hoặc sai ràng buộc?}
     E -->|Có| H[Hỏi lại một câu về thông tin cần bổ sung]
     E -->|Không| F[Tra điểm chơi, suất show và thời tiết]
-    F --> G[Model chọn thứ tự điểm chơi và suất show]
+    F --> P[Code đọc tình trạng đóng hoặc hủy theo ngày và lọc mục khả thi]
+    P --> G[Model chọn thứ tự điểm chơi và suất show]
     G --> I[Code tính giờ từ dữ liệu, áp khung giờ và ngân sách]
     I --> J[Validator kiểm lịch nháp]
-    J -->|Lịch có mục và hợp lệ| K[Code tính tổng tiền rồi in lịch và lý do]
-    J -->|Còn lỗi, có lịch và còn lượt sửa| L[Sửa bằng model với lịch cũ và lỗi validator]
+    J -->|Lịch có mục và hợp lệ| K[Code tính tổng tiền và in lịch, lý do và thông báo đã kiểm]
+    J -->|Còn lỗi, có lịch và còn lượt sửa| L[Lọc lại và sửa bằng model từ lịch cũ và lỗi validator]
     L -->|Có phương án| I
     L -->|Phương án rỗng| N[Báo chưa xếp được và gợi ý nới ràng buộc]
     J -->|Không có lịch hoặc hết 3 lần sửa| N
@@ -75,17 +76,18 @@ flowchart TD
 
 **Workflow cố định, tự kiểm tối đa 3 lần sửa.** Mỗi yêu cầu đi qua cùng các bước trích ràng buộc, tra dữ liệu, xếp và kiểm. Điều này giúp nhóm theo dõi số lần gọi model và kiểm thử từng nhánh. Model tập trung vào hiểu yêu cầu và chọn điểm, thứ tự hoặc suất show. Code chọn công cụ và kiểm điều kiện dừng.
 
-**Dữ liệu và công cụ.** `data/park.json`, `data/weather.json` và `data/travel.csv` là nguồn của bản thử. Dữ liệu được sinh lại bằng seed 42. Xem [data card](data/DATA_CARD.md).
+**Dữ liệu và công cụ.** Data v2 gồm `data/park.json`, `data/weather.json`, `data/travel.csv` và `data/closures.json`. Dữ liệu được sinh lại bằng seed 42. Xem [data card](data/DATA_CARD.md).
 
 | Công cụ hoặc nguồn | Đầu vào | Đầu ra | Tác động ra ngoài? |
 |---|---|---|---|
 | `tra_diem_choi(the_loai, khu)` | Bộ lọc thể loại và khu tùy chọn | Điểm, giờ mở và đóng cửa, thời lượng, thời gian chờ, giá, chiều cao tối thiểu, trong nhà hay ngoài trời | Chỉ đọc |
 | `tra_lich_show(diem_id)` | Mã điểm tùy chọn. `agent.py` lấy toàn bộ các suất | Mã show, nơi diễn, các suất, thời lượng và quy tắc hủy khi mưa | Chỉ đọc |
 | `tra_thoi_tiet(ngay)` | Ngày `YYYY-MM-DD` | Khung giờ mưa nếu có trong bộ dữ liệu | Chỉ đọc |
+| `closures.json` | Ngày `YYYY-MM-DD` | Mã điểm đóng và show hủy đột xuất. Planner lọc theo ngày và validator kiểm lại | Chỉ đọc |
 | Ma trận `travel.csv` | Cặp mã điểm, có thể bắt đầu từ `CONG` | Số phút đi bộ. Planner và validator đọc cùng ma trận mà `uoc_thoi_gian_di()` sử dụng | Chỉ đọc |
 | `kiem_lich_trinh(lich, rang_buoc)` và `tinh_tong_tien(lich, rang_buoc)` | Lịch có mã và giờ, kèm ràng buộc của gia đình | Danh sách vi phạm và chi phí vé cổng, trò chơi, tổng tiền | Tính và kiểm trong code |
 
-**Chặn rủi ro.** Lời khách và nội dung dữ liệu được đưa vào model dưới dạng dữ liệu. Planner kiểm kiểu JSON, mã điểm và suất show. Code tính giờ từ lịch show, giờ mở cửa, thời gian chờ và ma trận đi bộ, rồi kiểm khung giờ, mưa, chiều cao và ngân sách. Validator kiểm lịch trước khi trả. Khi thiếu chiều cao, hệ thống hỏi lại vì cả điều kiện chơi và giá vé dùng số đo này.
+**Chặn rủi ro.** Lời khách và nội dung nguồn được đưa vào model dưới dạng dữ liệu. Planner kiểm JSON theo hợp đồng và thử lại một lần khi sai định dạng. Code lọc điểm và suất theo ngày đi, sự cố đóng hoặc hủy, giờ mở cửa, mưa, chiều cao và ngân sách. Planner đối chiếu các tên khách gọi với danh mục để báo rõ mục thiếu dữ liệu hoặc không khả dụng khi trả lịch thay thế. Giờ, thời gian đi bộ, thời gian chờ và tiền lấy từ dữ liệu hoặc do code tính. Validator kiểm lại lịch trước khi trả. Khi thiếu chiều cao, hệ thống hỏi lại vì điều kiện chơi và giá vé đều dùng số đo này.
 
 **Mức tự động và chỗ người duyệt.** AI gợi ý, phụ huynh quyết định. Lịch hiển thị giờ, lý do và cách tính tổng tiền để phụ huynh phát hiện chỗ chưa hợp. Họ có thể đổi khung giờ, điểm ưu tiên hoặc ngân sách rồi gửi yêu cầu mới. Mọi giao dịch được thực hiện riêng trên kênh chính thức.
 
@@ -96,7 +98,7 @@ flowchart TD
 | **G8 / G9 — Dễ bỏ qua, dễ sửa** | Phụ huynh tự quyết định dùng lịch và có thể gửi lại yêu cầu đã đổi. |
 | **G11 — Giải thích vì sao** | Mỗi mục có lý do chọn. Tổng tiền tách vé cổng và trò thu phí riêng. |
 
-**Bản CP2.** Bản thử dùng dữ liệu công viên giả lập và có hai cấu hình. `MODEL_PROVIDER=fake` chạy planner stub để thử luồng. Để chạy model thật, cấu hình `MODEL_PROVIDER=openai`, `MODEL_NAME=cx/gpt-6-luna`, `MODEL_BASE_URL` và `API_KEY` của nhóm trong `.env` local rồi chạy `python run.py`. Kết quả thử tay trên model thật ghi nhận 15/16 ở lần đầu. Ca vé cổng vượt ngân sách được sửa và thử lại đạt. Ca chỉ muốn xem suất Xiếc thú bị hủy do mưa cho đúng hành vi dừng nhưng lý do còn chung chung.
+**Bản CP3 dùng cho lượt 1.** `run-1@20261127-234913` chạy trên commit `53ccde1` với model thật `cx/gpt-6-luna`, công cụ thật và validator bằng code trên Data v2 giả lập. `MODEL_PROVIDER=fake` là chế độ thử riêng có planner stub. Cả hai chế độ đều gọi công cụ và validator của nhóm. Xem [cấu hình model](docs/connect-model.md) và [hồ sơ lượt chạy](eval/README.md#5-đã-chạy-gì). Trong lượt 1, B21 báo show Múa rối nước bị hủy đột xuất và thay bằng Kịch thiếu nhi.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
