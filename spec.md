@@ -7,13 +7,13 @@ Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: C1 · Lịch tr
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dùng (track C không có data BTC). Bằng chứng: review công khai + phỏng vấn. Dữ liệu chạy thử: tự dựng có seed (`data/DATA_CARD.md`).
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại (theo trải nghiệm của nhóm, **chưa kiểm** bằng ảnh chụp — bổ sung ảnh app / trang chính thức trước CP3):
-  1. Tối hôm trước hoặc tại cổng: mua vé, mở app / trang web của khu vui chơi xem bản đồ và danh sách trò.
-  2. Xem lịch show ở một trang riêng (hoặc bảng ở cổng), tự nhớ giờ các show muốn xem.
+- Luồng hiện tại (theo trải nghiệm của nhóm; bước 1–2 đã đối chiếu với web chính thức VinWonders và Sun World ngày 27/11/2026, ảnh trong `evidence/screenshots/`; bước 3–5 **chưa kiểm**, kiểm bằng phỏng vấn):
+  1. Tối hôm trước hoặc tại cổng: mua vé trên web. Ô tìm vé chỉ hỏi điểm đến, ngày (Sun World thêm số người) — không hỏi tuổi / chiều cao trẻ hay sở thích (`vinwonders-home.png`, `sunworld-home.png`).
+  2. Xem giờ show trên trang của từng công viên: VinWonders Phú Quốc liệt kê 4 show kèm giờ và khu (vd Sắc Màu Đại Dương 14:00–14:20 & 15:30–15:50 ở Cung Điện Hải Vương, Diễu hành Carnival 17:00–17:30, Once Show 18:45–19:05 ở Đại Lộ Châu Âu) (`vinwonders-phuquoc.png`). Giá vé và quy định chiều cao lại nằm ở trang "Nội quy & giá vé" riêng: giá chia theo chiều cao (<100 cm miễn phí, 100–<140 cm vé trẻ em, ≥140 cm vé người lớn), trẻ dưới 140 cm phải có người lớn đi kèm (`vinwonders-phuquoc-noiquy-giave.png`). Trang "Show diễn - Sự kiện" của Sun World là danh sách bài tin tức, không phải bảng giờ show (`sunworld-show.png`). Khách tự ghép giờ show, giá và chiều cao từ các trang này.
   3. Đến từng trò mới biết giới hạn chiều cao, thời gian chờ, trò có thu phí riêng không.
   4. Trong ngày tự quyết đi đâu tiếp theo dựa vào bản đồ; mưa hoặc show huỷ thì tự xếp lại.
   5. Cuối ngày mới biết tổng chi (vé cổng + trò thu phí riêng + ăn uống).
-- Công cụ / AI đang được dùng: app / trang chính thức của khu vui chơi (bản đồ, lịch show) — **chưa kiểm** tính năng gợi ý lịch trình ở các khu vui chơi Việt Nam · chatbot chung (ChatGPT, Gemini) để hỏi "nên chơi gì" — **chưa kiểm**, không có dữ liệu giờ mở cửa / giá của ngày đi.
+- Công cụ / AI đang được dùng: web chính thức của khu vui chơi (giờ show, giá vé, nội quy) — trên các trang web đã xem của VinWonders và Sun World **không thấy** tính năng gợi ý / xếp lịch trình (chưa kiểm app di động) · chatbot chung (ChatGPT, Gemini) để hỏi "nên chơi gì" — **chưa kiểm**, không có dữ liệu giờ mở cửa / giá của ngày đi.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - Người dùng chính (một vai cụ thể): bố hoặc mẹ đưa 1–2 con nhỏ (3–10 tuổi) đi khu vui chơi lớn một ngày, là người tự lên kế hoạch và cầm ngân sách.
@@ -37,8 +37,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8) *(tự ước tính, thay bằng số phỏng vấn)*: **xep_mot_lan** — xếp 1 lần rồi đi · **sua_nhieu_lan** — xếp rồi sửa 2–4 lần trước ngày đi (đổi giờ, bớt trò, đổi ngân sách) · **ngay_mua** — xếp lại giữa ngày vì mưa / show huỷ, mỗi lần xếp thêm các vòng tự kiểm.
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
-- **App / trang chính thức của khu vui chơi** (bản đồ, danh sách trò, lịch show) — *chưa kiểm chi tiết, chụp ảnh trước CP3*: đáng học · dữ liệu chính thức, là nguồn sự thật · đáng né · thông tin rải ở nhiều màn hình, khách tự ghép · mình khác · gom các ràng buộc lại và xếp sẵn thành lịch từng giờ.
-- **Disney Genie** trong app My Disney Experience (công viên Disney ở Mỹ, gợi ý lịch trình theo sở thích) — *theo trang chính thức của Disney, chưa kiểm lại trong hackathon*: đáng học · hỏi sở thích rồi gợi ý thứ tự, cập nhật trong ngày · đáng né · gắn với dịch vụ trả phí và dữ liệu chờ hàng thật mà nhóm không có · mình khác · làm cho một gia đình có trẻ nhỏ, chú trọng chiều cao / tuổi và ngân sách, nói rõ khi không xếp được.
+- **Web chính thức của khu vui chơi** (VinWonders, Sun World — đã xem web ngày 27/11/2026, ảnh trong `evidence/screenshots/`; chưa kiểm app di động): đáng học · dữ liệu chính thức, là nguồn sự thật; VinWonders ghi giờ show và khu ngay trên trang công viên · đáng né · giờ show, giá vé và quy định chiều cao nằm ở các trang khác nhau, ô tìm vé không hỏi tuổi / chiều cao trẻ, không có tính năng xếp lịch — khách tự ghép · mình khác · gom các ràng buộc lại và xếp sẵn thành lịch từng giờ.
+- **Disney Genie** trong app My Disney Experience (công viên Disney ở Mỹ, gợi ý lịch trình theo sở thích) — *theo trang chính thức của Disney, chưa kiểm lại trong hackathon (web Disney chặn trình duyệt tự động, chưa chụp được — cần một người mở tay và chụp)*: đáng học · hỏi sở thích rồi gợi ý thứ tự, cập nhật trong ngày · đáng né · gắn với dịch vụ trả phí và dữ liệu chờ hàng thật mà nhóm không có · mình khác · làm cho một gia đình có trẻ nhỏ, chú trọng chiều cao / tuổi và ngân sách, nói rõ khi không xếp được.
 - **Chatbot chung (ChatGPT, Gemini)** hỏi "đi khu vui chơi X nên chơi gì": đáng học · nhập bằng câu tự nhiên, không cần form · đáng né · tự nhẩm giờ / giá, có thể nói sai giờ mở cửa, không kiểm chồng giờ · mình khác · giờ, giá, tổng tiền chỉ lấy từ dữ liệu và được **kiểm bằng code** trước khi đưa cho khách.
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
