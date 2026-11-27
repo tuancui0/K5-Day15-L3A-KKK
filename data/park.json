@@ -1,0 +1,325 @@
+{
+  "diem": [
+    {
+      "id": "D01",
+      "ten": "Tàu lượn siêu tốc",
+      "khu": "Khu Cảm Giác Mạnh",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 3,
+      "cho_doi_phut": 20,
+      "gia": {
+        "nguoi_lon": 50000,
+        "tre_em": 50000
+      },
+      "chieu_cao_min_cm": 140,
+      "trong_nha": false,
+      "the_loai": [
+        "cam_giac_manh"
+      ]
+    },
+    {
+      "id": "D02",
+      "ten": "Đu quay dây văng",
+      "khu": "Khu Cảm Giác Mạnh",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 2,
+      "cho_doi_phut": 15,
+      "gia": {
+        "nguoi_lon": 40000,
+        "tre_em": 40000
+      },
+      "chieu_cao_min_cm": 130,
+      "trong_nha": false,
+      "the_loai": [
+        "cam_giac_manh"
+      ]
+    },
+    {
+      "id": "D03",
+      "ten": "Nhà ma",
+      "khu": "Khu Cảm Giác Mạnh",
+      "mo": "09:00",
+      "dong": "16:30",
+      "thoi_luong_phut": 10,
+      "cho_doi_phut": 10,
+      "gia": {
+        "nguoi_lon": 60000,
+        "tre_em": 60000
+      },
+      "chieu_cao_min_cm": 120,
+      "trong_nha": true,
+      "the_loai": [
+        "cam_giac_manh"
+      ]
+    },
+    {
+      "id": "D04",
+      "ten": "Đu quay ngựa gỗ",
+      "khu": "Khu Trẻ Em",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 5,
+      "cho_doi_phut": 5,
+      "gia": {
+        "nguoi_lon": 30000,
+        "tre_em": 20000
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": false,
+      "the_loai": [
+        "tre_em"
+      ]
+    },
+    {
+      "id": "D05",
+      "ten": "Nhà bóng",
+      "khu": "Khu Trẻ Em",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 15,
+      "cho_doi_phut": 5,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 30000
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": true,
+      "the_loai": [
+        "tre_em"
+      ]
+    },
+    {
+      "id": "D06",
+      "ten": "Xe điện đụng",
+      "khu": "Khu Trẻ Em",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 5,
+      "cho_doi_phut": 10,
+      "gia": {
+        "nguoi_lon": 30000,
+        "tre_em": 30000
+      },
+      "chieu_cao_min_cm": 100,
+      "trong_nha": false,
+      "the_loai": [
+        "tre_em"
+      ]
+    },
+    {
+      "id": "D07",
+      "ten": "Hồ bơi tạo sóng",
+      "khu": "Khu Nước",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 30,
+      "cho_doi_phut": 0,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 0
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": false,
+      "the_loai": [
+        "nuoc"
+      ]
+    },
+    {
+      "id": "D08",
+      "ten": "Sông lười",
+      "khu": "Khu Nước",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 20,
+      "cho_doi_phut": 0,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 0
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": false,
+      "the_loai": [
+        "nuoc"
+      ]
+    },
+    {
+      "id": "D09",
+      "ten": "Máng trượt cao tốc",
+      "khu": "Khu Nước",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 2,
+      "cho_doi_phut": 20,
+      "gia": {
+        "nguoi_lon": 20000,
+        "tre_em": 20000
+      },
+      "chieu_cao_min_cm": 140,
+      "trong_nha": false,
+      "the_loai": [
+        "nuoc"
+      ]
+    },
+    {
+      "id": "D10",
+      "ten": "Thuỷ cung",
+      "khu": "Khu Văn Hoá",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 30,
+      "cho_doi_phut": 5,
+      "gia": {
+        "nguoi_lon": 80000,
+        "tre_em": 50000
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": true,
+      "the_loai": [
+        "van_hoa"
+      ]
+    },
+    {
+      "id": "D11",
+      "ten": "Vườn thú mini",
+      "khu": "Khu Văn Hoá",
+      "mo": "09:00",
+      "dong": "16:30",
+      "thoi_luong_phut": 20,
+      "cho_doi_phut": 0,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 0
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": false,
+      "the_loai": [
+        "van_hoa"
+      ]
+    },
+    {
+      "id": "D12",
+      "ten": "Rạp chiếu phim 4D",
+      "khu": "Khu Văn Hoá",
+      "mo": "09:30",
+      "dong": "16:30",
+      "thoi_luong_phut": 15,
+      "cho_doi_phut": 10,
+      "gia": {
+        "nguoi_lon": 50000,
+        "tre_em": 50000
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": true,
+      "the_loai": [
+        "van_hoa"
+      ]
+    },
+    {
+      "id": "D13",
+      "ten": "Đu quay vòng trời",
+      "khu": "Khu Cảm Giác Mạnh",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 8,
+      "cho_doi_phut": 15,
+      "gia": {
+        "nguoi_lon": 40000,
+        "tre_em": 40000
+      },
+      "chieu_cao_min_cm": 100,
+      "trong_nha": false,
+      "the_loai": [
+        "cam_giac_manh"
+      ]
+    },
+    {
+      "id": "D14",
+      "ten": "Sân khấu ngoài trời",
+      "khu": "Khu Trung Tâm",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 0,
+      "cho_doi_phut": 0,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 0
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": false,
+      "the_loai": [
+        "san_khau"
+      ]
+    },
+    {
+      "id": "D15",
+      "ten": "Nhà hát trong nhà",
+      "khu": "Khu Trung Tâm",
+      "mo": "09:00",
+      "dong": "17:00",
+      "thoi_luong_phut": 0,
+      "cho_doi_phut": 0,
+      "gia": {
+        "nguoi_lon": 0,
+        "tre_em": 0
+      },
+      "chieu_cao_min_cm": 0,
+      "trong_nha": true,
+      "the_loai": [
+        "san_khau"
+      ]
+    }
+  ],
+  "show": [
+    {
+      "id": "S01",
+      "ten": "Xiếc thú",
+      "diem_id": "D14",
+      "gio": [
+        "10:30",
+        "15:30"
+      ],
+      "thoi_luong_phut": 30,
+      "huy_khi_mua": true
+    },
+    {
+      "id": "S02",
+      "ten": "Nhạc nước",
+      "diem_id": "D14",
+      "gio": [
+        "11:30",
+        "16:30"
+      ],
+      "thoi_luong_phut": 20,
+      "huy_khi_mua": true
+    },
+    {
+      "id": "S03",
+      "ten": "Múa rối nước",
+      "diem_id": "D15",
+      "gio": [
+        "13:00",
+        "16:00"
+      ],
+      "thoi_luong_phut": 45,
+      "huy_khi_mua": false
+    },
+    {
+      "id": "S04",
+      "ten": "Kịch thiếu nhi",
+      "diem_id": "D15",
+      "gio": [
+        "10:00",
+        "14:30"
+      ],
+      "thoi_luong_phut": 30,
+      "huy_khi_mua": false
+    }
+  ],
+  "ve_vao_cong": {
+    "nguoi_lon": 220000,
+    "tre_em": 150000,
+    "tre_duoi_1m": 0
+  }
+}
