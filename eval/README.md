@@ -5,24 +5,24 @@
 
 ## 1. Dataset → xử lý
 
-- **Dữ liệu chạy bản chạy thử (`synthetic`, seed=42):** Dữ liệu giả lập "Công viên Mẫu" do Role [B] (Bùi Xuân Thành) sinh bằng `data/gen_data.py` gồm `data/park.json` (15 điểm chơi chia 4 khu + 1 khu sân khấu, 4 show có cờ `huy_khi_mua`, vé cổng 220k NL / 150k trẻ / 0đ trẻ dưới 1m), `data/weather.json` (ngày mưa `2026-12-05` khung **10:00–12:00**; các ngày khác như `2026-12-06` trời quang), và `data/travel.csv` (120 cặp thời gian đi bộ). Chi tiết nguồn và bước xử lý nằm ở `data/DATA_CARD.md`.
-- **Dữ liệu đào bằng chứng & trích tình huống thật:** 60 review công khai liên tiếp mới nhất của VinWonders Phú Quốc trên Google Maps (xem 27/11/2026), đã ẩn danh tên người viết và tên nhân viên (`evidence/reviews_labeled.csv`, `evidence/data-mining.md`), kết hợp phỏng vấn người thật (`evidence/interviews/P4.md` đã hoàn thành; `P1–P3` đồng đội bổ sung trước CP3).
+- **Dữ liệu chạy bản chạy thử (`synthetic`, seed=42, v2):** Dữ liệu giả lập "Công viên Mẫu" do Role [B] (Bùi Xuân Thành) sinh bằng `data/gen_data.py` gồm `data/park.json` (15 điểm chơi chia 4 khu + 1 khu sân khấu, 4 show có cờ `huy_khi_mua`, vé cổng 220k NL / 150k trẻ / 0đ trẻ dưới 1m), `data/weather.json` (ngày mưa `2026-12-05` khung **10:00–12:00**; các ngày khác trời quang), `data/travel.csv` (120 cặp thời gian đi bộ), và **v2 `data/closures.json`** (sự cố đột xuất: `2026-12-06` đóng `D09`, `2026-12-07` huỷ show `S03`; `validator.py` kiểm 11 loại vi phạm). Chi tiết nguồn và bước xử lý nằm ở `data/DATA_CARD.md`.
+- **Dữ liệu đào bằng chứng & trích tình huống thật:** 60 review công khai liên tiếp mới nhất của VinWonders Phú Quốc trên Google Maps (xem 27/11/2026, `evidence/reviews_labeled.csv`, `evidence/data-mining.md`), kết hợp 4 bài phỏng vấn người thật (`evidence/interviews/P1.md`–`P4.md`) và khảo sát ẩn danh $n = 20$ (`evidence/survey/results.csv`).
 
 ## 2. Bộ câu thử dựng ra sao
 
-- `eval/benchmark.csv` **(bản CP2):** **15 câu** (`thuong` 4 · `kho` 8 · `tu_choi` 3, trong đó 2 câu tấn công `B13`, `B14`). *(Kế hoạch trước CP3: mở rộng thêm 9–13 câu từ kết quả phỏng vấn `nguoi_dung: P1..P3` và review bổ sung để đạt 24–28 câu, không sửa `expected` câu cũ.)*
-- **Nguồn (`python run.py check` in sẵn):** `nguoi_dung` 1 · `data_that` 5 · `tu_viet` 8 · `sinh_seed` 1 → từ người dùng / data thật **6/15 (40,0%)** *(đạt ngưỡng ≥1/3)*.
+- `eval/benchmark.csv` **(bản CP3 — chỉ thêm `B16`–`B25`, giữ nguyên `B01`–`B15` đã chốt ở CP2):** **25 câu** (`thuong` 8 · `kho` 13 · `tu_choi` 4, trong đó 2 câu tấn công `B13`, `B14`).
+- **Nguồn (`python run.py check` in sẵn):** `nguoi_dung` 7 · `data_that` 6 · `tu_viet` 9 · `sinh_seed` 3 → từ người dùng / data thật **13/25 (52,0%)** *(vượt ngưỡng ≥1/3)*.
 - **Độ phủ — lưới input 5 chiều (guide 2.4 bước 5):**
-  1. *Thành phần & chiều cao trẻ:* 1 bé (95–130cm) · 2 bé chênh chiều cao (95cm & 128cm; 108cm & 135cm) · thiếu thông tin trẻ.
-  2. *Ngân sách & khung giờ:* thoải mái (2,5–3,5tr, cả ngày) · về sớm 16:00 · bất khả thi ngân sách (300k < vé cổng 740k) · bất khả thi thời gian (2,5 tiếng cho 8 trò + 2 show).
-  3. *Thời tiết:* ngày nắng (`2026-12-06`) · ngày mưa buổi sáng (`2026-12-05`, mưa 10:00–12:00 theo `data/weather.json`).
-  4. *Độ hợp lệ dữ kiện:* đủ dữ kiện · thiếu 1 phần hoặc toàn bộ · đòi điểm không tồn tại · ngoài phạm vi / tấn công prompt injection.
+  1. *Thành phần & chiều cao trẻ:* 1 bé (90–145cm, gồm bé <1m miễn vé `B19`) · 2 bé chênh chiều cao (95/128cm · 100/122cm · 102/122cm · 105/122cm · 108/135cm · 115/130cm) · thiếu thông tin trẻ.
+  2. *Ngân sách & khung giờ:* thoải mái (1,2–3,5tr) · ngân sách sát vé cổng (`740k` = 0đ trò thu phí `B23`) · bất khả thi ngân sách (`300k` < `740k` `B09`) · đến sớm trước giờ mở (`07:30` `B22`) · điểm đóng sớm `16:30` (`B24`) · về sớm `16:00` (`B04`) · bất khả thi thời gian (`2,5h` cho 8 trò + 2 show `B10`).
+  3. *Thời tiết & sự cố đột xuất (Data v2):* ngày nắng (`2026-12-08`, `2026-12-06`) · ngày mưa buổi sáng (`2026-12-05`, mưa 10:00–12:00) · đóng bảo trì đột xuất `D09` (`2026-12-06` `B20`) · huỷ show đột xuất `S03` (`2026-12-07` `B21`).
+  4. *Độ hợp lệ dữ kiện:* đủ dữ kiện · thiếu 1 phần hoặc toàn bộ · đòi điểm không tồn tại · ngoài phạm vi (đặt vé/hoàn vé/số tài khoản) · tấn công prompt injection.
   5. *Hành vi mong đợi (`hanh_vi`):* `xep_lich` · `hoi_lai` · `khong_xep_duoc` · `tu_choi`.
 - **Câu `kho` & `tu_choi` trỏ về 4 lớp chỗ khó (`spec.md` §5):**
   - Lớp 1 (nguồn sự thật): `B06`
   - Lớp 2 (mơ hồ / thiếu thông tin): `B05`, `B11` *(và `B02` sở thích chung chung)*
-  - Lớp 3 (ngoài phạm vi / thẩm quyền + tấn công): `B12`, `B13`, `B14`
-  - Lớp 4 (đặc thù lĩnh vực — mưa, chiều cao, ngân sách/thời gian bất khả thi): `B04`, `B07`, `B08`, `B09`, `B10`, `B15`
+  - Lớp 3 (ngoài phạm vi / thẩm quyền + tấn công): `B12`, `B13`, `B14`, `B25`
+  - Lớp 4 (đặc thù lĩnh vực — mưa, chiều cao, ngân sách sát/bất khả thi, giờ mở/đóng sớm, sự cố đột xuất v2): `B04`, `B07`, `B08`, `B09`, `B10`, `B15`, `B18`, `B20`, `B21`, `B22`, `B23`
 
 ## 3. Metric và cách chấm
 
