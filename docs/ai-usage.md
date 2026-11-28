@@ -8,6 +8,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 |---|---|---|---|---|
 | Code bản chạy thử | Codex | Hỗ trợ nối gateway và viết phần đọc JSON, lọc mục khả thi và tính giờ bằng dữ liệu công viên | Đã chạy thử qua CLI và đối chiếu lịch với validator | Phan Nhật Trường |
 | Prompt / thiết kế lời gọi mô hình | Codex, cx/gpt-6-luna | Soạn ba prompt trích, xếp và sửa. Thử đầu ra thật trên các ca thiếu dữ liệu, điểm đóng và show hủy | Đã đối chiếu tên điểm, giờ, lý do phản hồi và hành vi với dữ liệu v2 | Phan Nhật Trường |
+| Bằng chứng, spec §0–3, luồng chính | Claude Code | Soạn nháp `evidence/summary.md`, `spec.md` §0–3, ẩn danh khảo sát (`evidence/survey/`) và sửa nhỏ `agent.py` theo yêu cầu | Tuấn Anh quyết định nội dung và phạm vi, chọn cách đếm (chỉ tính người đã đi cùng con nhỏ, ghi x/n), duyệt từng số với file nguồn và tự commit | Đỗ Tuấn Anh |
 | Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |
 | Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
 | Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |

@@ -81,14 +81,19 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: ____ |
-|  |  |  |
+| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: cx/gpt-6-luna |
+| Kiểm ràng buộc + tính tiền (`validator.py`) | **Thật** (code) | Giờ, giá, tổng tiền, chiều cao, mưa do code kiểm, không để model nhẩm |
+| Dữ liệu công viên (`data/`) | **Giả** | "Công viên Mẫu" tự dựng, seed 42 — không nối hệ thống thật của khu vui chơi nào (`data/DATA_CARD.md`) |
+| Đặt vé, thanh toán | **Không có** | Ngoài phạm vi — bản chạy thử từ chối và chỉ kênh chính thức |
+| Bằng chứng pain | **Thật** | Phỏng vấn P1–P4, khảo sát n = 20, review Google Maps (`evidence/`) |
 
 ## Dùng AI vào việc gì
 
 2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
-____
+- **Codex + cx/gpt-6-luna**: hỗ trợ viết `planner.py`, ba prompt trích / xếp / sửa lịch; chạy thử và đối chiếu lịch với `validator.py`.
+- **Claude Code** (Tuấn Anh): soạn nháp `evidence/summary.md`, `spec.md` §0–3, ẩn danh khảo sát và sửa nhỏ `agent.py` theo yêu cầu của Tuấn Anh. Tuấn Anh quyết định nội dung và phạm vi, chọn cách đếm (chỉ tính người đã đi cùng con nhỏ, ghi x/n), duyệt từng số với file nguồn và tự commit.
+- Không dùng AI để tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát hay sửa kết quả lượt đã chạy. Thành, Kiên bổ sung phần của mình trong [docs/ai-usage.md](docs/ai-usage.md).
 
 ## File mẫu — điền ở bước nào
 
