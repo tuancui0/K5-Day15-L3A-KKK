@@ -92,7 +92,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
 - **Codex + cx/gpt-6-luna**: hỗ trợ viết `planner.py`, ba prompt trích / xếp / sửa lịch; chạy thử và đối chiếu lịch với `validator.py`.
-- **Claude Code** (Tuấn Anh): soạn nháp `evidence/summary.md`, `spec.md` §0–3, ẩn danh khảo sát và sửa nhỏ `agent.py` theo yêu cầu của Tuấn Anh. Tuấn Anh quyết định nội dung và phạm vi, chọn cách đếm (chỉ tính người đã đi cùng con nhỏ, ghi x/n), duyệt từng số với file nguồn và tự commit.
+- **Claude Code** (Tuấn Anh): soạn nháp `evidence/summary.md`, `spec.md` §0–3, ẩn danh khảo sát, sửa nhỏ `agent.py`, dựng `demo-slides.pdf` và nháp `spec.md` §8–10 theo yêu cầu của Tuấn Anh. Tuấn Anh quyết định nội dung và phạm vi, chọn cách đếm (chỉ tính người đã đi cùng con nhỏ, ghi x/n), duyệt từng số với file nguồn và tự commit.
 - Không dùng AI để tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát hay sửa kết quả lượt đã chạy. Thành, Kiên bổ sung phần của mình trong [docs/ai-usage.md](docs/ai-usage.md).
 
 ## File mẫu — điền ở bước nào
@@ -125,5 +125,5 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · link video: [video demo 30 s (CP3)](https://drive.google.com/file/d/1yR-hEUcjlMEcV1FWzs2mNzCwfEVAX7EM/view?usp=sharing) |
+| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · link video: [video demo 30 s (CP3)](https://drive.google.com/file/d/1yR-hEUcjlMEcV1FWzs2mNzCwfEVAX7EM/view?usp=sharing) · [video demo dự phòng (CP4)](https://drive.google.com/file/d/1YB2HZCteyA9ctEJmA8n63X5Yvt_xFPfL/view?usp=sharing) |
 | + | *Bonus:* người dùng thử | `validation/log.md` |

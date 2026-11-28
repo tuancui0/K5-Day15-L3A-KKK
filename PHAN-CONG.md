@@ -157,8 +157,8 @@ tinh_tong_tien(lich, rang_buoc) -> {"ve_vao_cong": int, "diem": int, "tong": int
 
 | Mốc | Hạng mục | Chủ | ✓ |
 |---|---|---|---|
-| CP1 | TEAMS · canvas · bài toán · lát cắt · repo công khai | L | ☐ |
-| CP2 | sơ đồ §4 · benchmark ≥10 · metric_spec · DATA_CARD · chuẩn "đạt" · `run.py` AI giả | A, C, B, L | ☐ |
-| CP3 | evidence đủ ngưỡng + ≥5 trích dẫn · benchmark 20–30 · video 30s · run-1 + run ID · spec §0–7 | L, C, A | ☐ |
-| CP4 | run-2 + report + eval/README · cost 3 kịch bản · spec §0–9 · demo-slides.pdf · video dự phòng | tất cả | ☐ |
+| CP1 | TEAMS · canvas · bài toán · lát cắt · repo công khai | L | ☑ |
+| CP2 | sơ đồ §4 · benchmark ≥10 · metric_spec · DATA_CARD · chuẩn "đạt" · `run.py` AI giả | A, C, B, L | ☑ |
+| CP3 | evidence đủ ngưỡng + ≥5 trích dẫn · benchmark 20–30 · video 30s · run-1 + run ID · spec §0–7 | L, C, A | ☑ |
+| CP4 | run-2 + report + eval/README · cost 3 kịch bản · spec §0–9 · demo-slides.pdf · video dự phòng | tất cả | ☑ |
 | 23:59 | spec §10 · 4 file reflection | tất cả | ☐ |

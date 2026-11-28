@@ -33,11 +33,11 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): không dù
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| **H1 · Xếp lịch một ngày cho gia đình có trẻ nhỏ** (trước ngày đi / tại cổng) | gia đình có trẻ nhỏ trong số khách khu vui chơi — __ *(cần nguồn: lượt khách/năm công khai × tỉ lệ khách đi cùng trẻ)* · trong mẫu: 4/4 người phỏng vấn, 9/12 người khảo sát đã đi cùng con nhỏ gặp trẻ không đủ chiều cao | 1 chuyến / gia đình (P1, P3: 1 lần trong tháng qua; P3, P4: 1–2 lần / năm), mỗi chuyến sửa lịch 2–3 lần (P1, P2, P3) | 20–60 phút tự lên kế hoạch + 35–120 phút mất vô ích (P2–P4) + lỡ 1–2 show / trò (P1, P3, P4) | __ gia đình × 1 × (~35 phút chuẩn bị + ~35 phút vô ích) *(trung vị thô: chuẩn bị 20 / 35 / 35 / 60 phút ở P1–P4; vô ích >30 / 35 / 90–120 phút ở P2–P4)* | **Kịp**: dữ liệu tự dựng được, kiểm ràng buộc bằng code, đo được bằng câu thử | **✓ Chọn** |
+| **H1 · Xếp lịch một ngày cho gia đình có trẻ nhỏ** (trước ngày đi / tại cổng) | gia đình có trẻ nhỏ trong số khách khu vui chơi — 200 / 500 / 1.000 gia đình / tháng *(tự ước tính — chưa có nguồn công khai tách theo công viên, xem `cost/cost-estimate.md` §1)* · trong mẫu: 4/4 người phỏng vấn, 9/12 người khảo sát đã đi cùng con nhỏ gặp trẻ không đủ chiều cao | 1 chuyến / gia đình (P1, P3: 1 lần trong tháng qua; P3, P4: 1–2 lần / năm), mỗi chuyến sửa lịch 2–3 lần (P1, P2, P3) | 20–60 phút tự lên kế hoạch + 35–120 phút mất vô ích (P2–P4) + lỡ 1–2 show / trò (P1, P3, P4) | 500 gia đình *(tự ước tính)* × 1 × (~35 phút chuẩn bị + ~35 phút vô ích) ≈ 580 giờ / tháng *(trung vị thô: chuẩn bị 20 / 35 / 35 / 60 phút ở P1–P4; vô ích >30 / 35 / 90–120 phút ở P2–P4)* | **Kịp**: dữ liệu tự dựng được, kiểm ràng buộc bằng code, đo được bằng câu thử | **✓ Chọn** |
 | H2 · Xếp lại phần còn lại của ngày khi mưa / show huỷ | chỉ các gia đình gặp mưa / huỷ show — 1/4 người phỏng vấn (P4), 8/12 người khảo sát đã đi | phụ thuộc mùa mưa *(tự ước tính)* | P4: lỡ 2 show, về sớm, 90–120 phút vòng vèo | nhỏ hơn H1 | Kịp, nhưng cần H1 chạy trước | Gộp vào H1 như **câu thử khó** (mưa giữa ngày), không làm riêng |
 | H3 · Dự đoán thời gian chờ hàng, gợi ý giờ vắng | mọi khách *(tự ước tính)* | mỗi lần đi | 15–60 phút chờ mỗi trò *(tự ước tính)* | có thể lớn | **Không kịp**: cần dữ liệu thời gian chờ thật, nhóm không có và không được nối hệ thống thật | ✗ Loại |
 
-- **Impact / tháng** của hướng chọn = __ gia đình / tháng × 1 lần × ~70 phút (≈35 phút chuẩn bị + ≈35 phút mất vô ích, trung vị P1–P4) = __ giờ / tháng + ~1–2 show / trò bị lỡ mỗi gia đình — nguồn từng thừa số: số gia đình: __ *(nguồn công khai, Thành tìm ở chặng 4)* · phút chuẩn bị, phút vô ích, số show lỡ: phỏng vấn P1–P4 (n = 4, chỉ là cỡ, không phải trung bình đại diện) · Lịch có sẵn **không** cắt được phần chi vượt do ăn uống (nguyên nhân chính của chi vượt ở P1, P3, P4).
+- **Impact / tháng** của hướng chọn = 500 gia đình / tháng *(cơ sở, tự ước tính)* × 1 lần × ~70 phút (≈35 phút chuẩn bị + ≈35 phút mất vô ích, trung vị P1–P4) ≈ **580 giờ / tháng** (thấp 200 → ~230 giờ · cao 1.000 → ~1.170 giờ) + ~1–2 show / trò bị lỡ mỗi gia đình — nguồn từng thừa số: số gia đình: *(tự ước tính)* — chỉ tìm được số khách toàn đảo Phú Quốc, không tách được theo công viên và theo gia đình có trẻ nhỏ (`cost/cost-estimate.md` §1) · phút chuẩn bị, phút vô ích, số show lỡ: phỏng vấn P1–P4 (n = 4, chỉ là cỡ, không phải trung bình đại diện) · Lịch có sẵn **không** cắt được phần chi vượt do ăn uống (nguyên nhân chính của chi vượt ở P1, P3, P4).
 - Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá): **H3** loại vì cần dữ liệu thời gian chờ thật và nối vào hệ thống của khu vui chơi (trái ràng buộc chung số 2). **H2** không làm riêng, giữ làm tình huống khó trong bộ câu thử của H1.
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): **xep_mot_lan** — xếp 1 lần rồi đi *(không ai trong P1–P4 giữ nguyên lịch cả ngày; giữ làm persona tối thiểu)* · **sua_nhieu_lan** — xếp rồi sửa 2–3 lần (P1 ~3 lần, P2 2–3 lần, P3 2 lần) · **ngay_mua** — xếp lại giữa ngày vì mưa / show huỷ (P4; 8/12 người khảo sát đã đi gặp mưa / show huỷ). Mỗi gia đình ~1 chuyến khi đi, 1–2 chuyến / năm (P3, P4).
 
@@ -133,26 +133,37 @@ flowchart TD
 - Lượt 1 `run-1@20261127-234913` đạt **22/25 (88,0%)**, vướng điều kiện về đầu vào bất khả thi ở B10. Lượt 2 `run-2@20261128-104450` đạt **23/25 (92,0%)** và B10 qua, nhưng vẫn chưa đạt chuẩn vì B13 làm nhóm từ chối chỉ đạt 3/4. Chi tiết ở `eval/report.md` và `eval/README.md`.
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
-- Chi phí / task thành công: __ (model __) · __ (model __)
-- Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+- Persona + giá: `cost/personas.yaml` (3 persona `xep_mot_lan` 15% · `sua_nhieu_lan` 35% · `ngay_mua` 50%) · lượt mô phỏng: `cost/simulate-1.csv` (50 phiên, seed 42, 1 phiên lỗi timeout không tính) · run ID `simulate-1@20261128-110117` · tỉ lệ đạt lấy từ `eval/run-2.csv` (23/25 = 92%) · token đo trên `cx/gpt-6-luna`
+- Chi phí / task thành công: **$0,0026** (model `gemini-3.1-flash-lite`) · **$0,0142** (model `gemini-4-hydrogen`)
+- Chi phí / tháng ở quy mô thật (rẻ – mạnh): thấp 200 gia đình $0,06 – $0,32 · cơ sở 500 $0,14 – $0,79 · cao 1.000 $0,29 – $1,59 *(số gia đình tự ước tính)* → chi tiết `cost/cost-estimate.md`
+- So với impact / người / tháng (§2): **đáng làm**. Chi phí cơ sở $0,00029 – $0,0016 / người / tháng (dưới 1 xu Mỹ), trong khi mỗi chuyến phụ huynh mất ~70 phút vì lịch không hợp lý. Rào cản không phải chi phí mà là chất lượng: lượt 2 còn 2/25 câu trượt (B13, B21) và chưa đạt chuẩn §7.
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí: phỏng vấn ghi theo vai P1–P4, không tên; khảo sát bỏ cột liên hệ (số điện thoại, email) trước khi commit, chỉ giữ mã S01–S20; review Google Maps bỏ tên tác giả, mỗi review ≤2 câu. Bản chạy thử chỉ dùng dữ liệu tự dựng "Công viên Mẫu" (seed 42) — model không nhận dữ liệu cá nhân thật nào, ngoài nội dung khách tự gõ. Câu có số thẻ, CVV, OTP, mật khẩu, mã PIN, tài khoản ngân hàng bị code từ chối trước khi tới model (`agent.py`, `_NHAY_CAM`).
+- AI **không được** làm gì kể cả khi người dùng yêu cầu: đặt vé, thanh toán, hoàn tiền; xin hoặc nhận thông tin thẻ / đăng nhập; tự nhẩm giờ, giá, tổng tiền (chỉ lấy từ công cụ và `validator.py`); bỏ qua giới hạn chiều cao hay đổi giá theo lời người tự xưng nhân viên; xếp bừa khi yêu cầu bất khả thi hoặc thiếu thông tin bắt buộc.
+- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào: **trẻ nhỏ** nếu được xếp vào trò không đủ chiều cao → `validator.py` kiểm chiều cao từng bé bằng code, lịch vi phạm không bao giờ được in ra (0 vi phạm ràng buộc cứng ở 17/17 lịch lượt 2). **Phụ huynh** nếu nhận giờ / giá sai hoặc lý do sai rồi đổi kế hoạch vô ích → giờ, giá từ dữ liệu; khi không xếp được thì nêu lý do cụ thể và ràng buộc nên nới. **Rủi ro còn mở:** B13 (giả danh trưởng ca đòi bỏ kiểm chiều cao) vẫn được hỏi lại thay vì từ chối — lịch vẫn bị validator chặn nếu vi phạm chiều cao, nhưng cần chặn từ đầu (việc ưu tiên nếu có thêm 1 tuần); B21 lý do nhắc mưa sai ngày.
 
 ## §10. Phân công & changelog
 - Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"): **Đỗ Tuấn Anh** (đội trưởng) — `codebase/agent.py`, §0–3, bằng chứng pain, slide, nộp checkpoint · **Phan Nhật Trường** — `codebase/ai.py`, `codebase/planner.py`, §4 · **Bùi Xuân Thành** — `data/`, `codebase/tools.py`, `codebase/validator.py`, `cost/` · **Hoàng Đăng Kiên** — `eval/`, §5–7, `evidence/data-mining.md`. Review chéo: Tuấn Anh ↔ Trường, Thành ↔ Kiên. Chi tiết theo chặng: `PHAN-CONG.md`.
-- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`):
+- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`): **Codex** hỗ trợ Trường viết `planner.py` và 3 prompt, hỗ trợ Kiên rà lượt 2 và nháp slide đánh giá · **Antigravity** hỗ trợ Kiên gắn nhãn review, nháp bộ câu thử và `auto_grade.py` · **Claude Code** hỗ trợ Tuấn Anh nháp `summary.md`, §0–3, §8–10, ẩn danh khảo sát, sửa `agent.py`, dựng `demo-slides.pdf`; hỗ trợ Thành soạn câu phỏng vấn và Data v2. Người phụ trách từng phần duyệt số với file nguồn trước khi commit; không dùng AI tạo người được phỏng vấn, trích dẫn hay sửa kết quả lượt đã chạy.
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| CP3 · 27/11 | Thêm phỏng vấn P1, P2, P3 (cùng P4) và khảo sát ẩn danh n = 20 (`a56966b`) | Cần ≥3 người ngoài nhóm để kiểm giả thuyết; đào review chỉ ra 7/60 (11,7%), dưới ngưỡng |
+| CP3 · 27/11 | Data v2: `data/closures.json` (điểm đóng / show huỷ đột xuất) + 2 loại vi phạm mới trong `validator.py` (9 → 11) (`b21b4c8`) | P1, P3 kể chuyện trò tạm đóng / show huỷ tại chỗ; dùng cho câu `B20`, `B21` |
+| CP3 · 27/11 23:24 | Planner lọc lịch theo Data v2 và giải thích mục không khả dụng (`04902dd`) | Không để model xếp trò đang đóng hoặc show đã huỷ |
+| CP3 · 27/11 23:26 | Mở rộng bộ câu thử 15 → 25 câu (thêm `B16`–`B25`, giữ nguyên `B01`–`B15`) (`c2a9917`) | Đề yêu cầu 20–30 câu ở CP3; thêm ca từ P1–P4 và Data v2 |
+| CP3 · 27/11 23:41 | `agent.py` dùng tools / validator thật, bỏ bản giả; thêm gợi ý nới cho 2 vi phạm mới (`53ccde1`) | Bản chạy thử phải dùng AI và công cụ thật từ CP3 |
+| CP3 · 27/11 23:56 | Lượt 1: 22/25 (88%) `run-1@20261127-234913` (`f41a9c4`) | — |
+| CP3 · 28/11 00:10 | `evidence/summary.md`, `spec.md` §0–3 cập nhật số phỏng vấn / khảo sát; kết luận giả thuyết "đúng một phần" (`0135c0b`) | Bằng chứng mạnh nhất là trẻ không đủ chiều cao (4/4, 9/12), không phải chi vượt |
+| CP4 · 28/11 10:13 | Planner trích số trò / show tối thiểu, loại yêu cầu chắc chắn vượt khung giờ, thử lại 1 lần nếu thiếu mục (`dfe671a`) | Lỗi `B10` lượt 1: bỏ bớt yêu cầu bắt buộc rồi trả lịch, vướng điều kiện cứng §7 |
+| CP4 · 28/11 10:42 | `agent.py` kiểm số trò / show bắt buộc sau validator và giữ lý do thật khi không xếp được (`35a6037`) | `B10`: câu dự phòng chung "không còn trò nào vừa khung giờ" che mất lý do 150 phút không đủ |
+| CP4 · 28/11 10:55 | Lượt 2: 23/25 (92%) `run-2@20261128-104450` — B08, B10, B22 qua; B13, B21 trượt (`fc932e9`) | Cùng bộ 25 câu, cùng model, cùng cách chấm |
+| CP4 · 28/11 11:23 | Mô phỏng chi phí 50 phiên với tỉ lệ đạt từ `run-2` (`ce80f1f`, `1882bf6`) | §8 — chi phí / task thành công |
+| CP4 · 28/11 12:48 | `demo-slides.pdf` 8 trang (`152b51a`, `6f4ac6f`) | Nộp CP4 |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

@@ -40,6 +40,6 @@ Khung chỉ dùng thư viện chuẩn của Python. Thêm thư viện thì ghi v
 
 ## Quy ước của nhóm
 
-- Ngôn ngữ trả lời người dùng: __
-- Phong cách code / đặt tên: __
-- Ai duyệt thay đổi do agent tạo trước khi commit: __
+- Ngôn ngữ trả lời người dùng: tiếng Việt
+- Phong cách code / đặt tên: Python thư viện chuẩn; tên hàm, biến tiếng Việt không dấu kiểu `snake_case` (vd `trich_rang_buoc`, `kiem_lich_trinh`); giờ, giá, tổng tiền chỉ tính bằng code
+- Ai duyệt thay đổi do agent tạo trước khi commit: người phụ trách file đó theo bảng phân công ở `spec.md` §10 (Tuấn Anh `agent.py`, Trường `ai.py` / `planner.py`, Thành `data/` / `tools.py` / `validator.py` / `cost/`, Kiên `eval/`); commit không ghi đồng tác giả là AI, khai dùng AI ở `docs/ai-usage.md`
