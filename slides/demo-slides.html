@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KKK · Lịch một ngày ở khu vui chơi</title>
+<style>
+  @page { size: 13.333in 7.5in; margin: 0; }
+  :root { --ink:#1d2433; --mute:#5b6476; --line:#dfe3ea; --brand:#0f6b5c; --brand-soft:#e6f2ef; --warn:#a4441f; --warn-soft:#fbeee7; --bg:#ffffff; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI", Arial, sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .slide { width:13.333in; height:7.5in; padding:0.55in 0.7in 0.5in; position:relative; page-break-after:always; break-after:page; overflow:hidden; display:flex; flex-direction:column; }
+  .slide:last-child { page-break-after:auto; break-after:auto; }
+  .kicker { font-size:13pt; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); font-weight:600; }
+  h1 { font-size:32pt; margin:.08in 0 .22in; line-height:1.15; }
+  h2 { font-size:17pt; margin:0 0 .12in; }
+  p, li, td, th { font-size:15pt; line-height:1.4; }
+  ul, ol { margin:.05in 0; padding-left:.32in; }
+  li { margin:.04in 0; }
+  table { border-collapse:collapse; width:100%; }
+  th { text-align:left; color:var(--mute); font-weight:600; font-size:12.5pt; border-bottom:2px solid var(--line); padding:.06in .1in; }
+  td { border-bottom:1px solid var(--line); padding:.07in .1in; vertical-align:top; }
+  .num { font-weight:700; color:var(--brand); white-space:nowrap; }
+  .quote { border-left:5px solid var(--brand); background:var(--brand-soft); padding:.14in .22in; font-size:17pt; font-style:italic; margin-top:.2in; }
+  .quote small { display:block; font-style:normal; font-size:12pt; color:var(--mute); margin-top:.06in; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:.35in; flex:1; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:.18in; margin:.1in 0 .25in; }
+  .box { border:1px solid var(--line); border-radius:10px; padding:.16in .2in; }
+  .box h3 { margin:0 0 .06in; font-size:15pt; color:var(--brand); }
+  .box p { margin:0; font-size:13pt; }
+  .step { position:relative; }
+  .step .n { display:inline-block; width:.34in; height:.34in; border-radius:50%; background:var(--brand); color:#fff; text-align:center; line-height:.34in; font-weight:700; font-size:13pt; margin-bottom:.06in; }
+  .hl { background:var(--brand-soft); border-color:transparent; }
+  .warn { background:var(--warn-soft); border-color:transparent; }
+  .warn h3 { color:var(--warn); }
+  .big { font-size:40pt; font-weight:800; color:var(--brand); line-height:1; }
+  .big.warnc { color:var(--warn); }
+  .verdict { display:inline-block; font-size:30pt; font-weight:800; color:#fff; background:var(--brand); padding:.06in .3in; border-radius:10px; margin-right:.2in; }
+  pre { font-family:Consolas, monospace; font-size:11pt; background:#f5f6f8; border-radius:8px; padding:.12in .16in; margin:.06in 0 0; white-space:pre-wrap; line-height:1.35; }
+  .src { position:absolute; left:.7in; right:.7in; bottom:.22in; font-size:10.5pt; color:var(--mute); display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:.08in; }
+  .note { font-size:12pt; color:var(--mute); }
+  .cover h1 { font-size:40pt; }
+  a { color:var(--brand); }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide">
+  <div class="kicker">1 · Người dùng &amp; pain</div>
+  <h1>Bố mẹ đưa con nhỏ đi khu vui chơi tự ghép lịch từ nhiều trang rời rạc</h1>
+  <div class="grid2">
+    <div>
+      <p><b>Người dùng:</b> bố hoặc mẹ đưa 1–2 con 3–10 tuổi đi khu vui chơi một ngày, tự lên lịch và cầm ngân sách.</p>
+      <p><b>Chỗ đau:</b> giờ show, giờ mở cửa, giới hạn chiều cao, đường đi và mưa nằm ở các chỗ khác nhau → lỡ show, xếp hàng trò bé không được chơi, đi vòng vèo.</p>
+      <div class="quote">"Tiếc nhất không phải tiền, mà là để bé nhỏ đứng chờ cùng anh rồi tới lượt mới biết không được chơi."<small>P3 · phụ huynh 2 bé (122 cm, ~102 cm)</small></div>
+    </div>
+    <div>
+      <table>
+        <tr><th>Tín hiệu</th><th>Phỏng vấn</th><th>Khảo sát*</th></tr>
+        <tr><td>Đến trò mới biết bé không đủ chiều cao</td><td class="num">4/4</td><td class="num">9/12</td></tr>
+        <tr><td>Lỡ show / trò</td><td class="num">4/4**</td><td class="num">8/12</td></tr>
+        <tr><td>Mưa / show huỷ phải xếp lại</td><td class="num">1/4</td><td class="num">8/12</td></tr>
+        <tr><td>Chuẩn bị mỗi chuyến</td><td class="num" colspan="2">20–60 phút</td></tr>
+        <tr><td>Mất vô ích trong ngày</td><td class="num" colspan="2">35–120 phút (P2–P4)</td></tr>
+      </table>
+      <p class="note">* n = 20, chỉ đếm 12 người đã đi cùng con nhỏ · ** lỡ show / trò hoặc mất ≥30' vô ích · n nhỏ: là cỡ, không phải tỉ lệ đại diện</p>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: evidence/summary.md · phỏng vấn P1–P4 · evidence/survey/</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">2 · Vì sao chọn bài này</div>
+  <h1>Chọn xếp lịch một ngày: pain lớn nhất, làm kịp, đo được</h1>
+  <table>
+    <tr><th style="width:34%">Hướng</th><th>Mỗi lần tốn gì</th><th>Làm kịp?</th><th style="width:16%">Quyết định</th></tr>
+    <tr><td><b>H1 · Xếp lịch một ngày cho gia đình có trẻ nhỏ</b></td><td>~35' chuẩn bị + ~35' vô ích (trung vị P1–P4) + lỡ 1–2 show</td><td>Kịp: data tự dựng, kiểm ràng buộc bằng code, đo bằng câu thử</td><td class="num">✓ Chọn</td></tr>
+    <tr><td>H2 · Xếp lại khi mưa / show huỷ</td><td>P4: lỡ 2 show, về sớm, 90–120' vòng vèo</td><td>Cần H1 chạy trước</td><td>Gộp vào H1 làm câu thử khó</td></tr>
+    <tr><td>H3 · Dự đoán thời gian chờ hàng</td><td>15–60' / trò <i>(tự ước tính)</i></td><td>Không: cần data chờ hàng thật</td><td>✗ Loại</td></tr>
+  </table>
+  <div class="grid2" style="margin-top:.3in; flex:0">
+    <div class="box hl"><h3>Impact H1</h3><p>~70 phút / gia đình / chuyến + 1–2 show bị lỡ được tránh · số gia đình / tháng: 200 / 500 / 1.000 <i>(tự ước tính, chưa có nguồn công khai)</i></p></div>
+    <div class="box"><h3>Đã có gì</h3><p>Web VinWonders / Sun World không có tính năng xếp lịch · 6/20 người khảo sát hỏi ChatGPT, nhưng chatbot chung không có giờ / giá của ngày đi</p></div>
+  </div>
+  <div class="src"><span>Nguồn: spec.md §2–3 · evidence/summary.md · web chính thức xem 27/11/2026</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 3 (nội dung: Phan Nhật Trường) -->
+<section class="slide">
+  <div class="kicker">3 · Giải pháp</div>
+  <h1>Giải pháp lập lịch</h1>
+  <p>Phụ huynh nhập khung giờ, ngân sách, chiều cao của trẻ và sở thích để nhận lịch tại Công viên Mẫu.</p>
+  <div class="grid4">
+    <div class="box step"><span class="n">1</span><h3>Trích yêu cầu</h3><p>Model đọc dữ kiện. Thiếu thông tin thì hỏi lại.</p></div>
+    <div class="box step"><span class="n">2</span><h3>Đề xuất lịch</h3><p>Lọc điểm đóng và show hủy theo Data v2. Model chọn thứ tự.</p></div>
+    <div class="box step hl"><span class="n">3</span><h3>Kiểm bằng code</h3><p>Kiểm giờ, chi phí và số mục bắt buộc. Sửa tối đa 3 lượt.</p></div>
+    <div class="box step"><span class="n">4</span><h3>Trả lịch</h3><p>Hiển thị giờ và tổng tiền, hoặc giải thích vì sao chưa xếp được.</p></div>
+  </div>
+  <div class="grid2" style="flex:0">
+    <div class="box warn"><h3>8 trò và 2 show trong 150 phút</h3><p>Ở lượt 2, ca B10 báo chưa xếp được và gợi ý giảm số mục hoặc kéo dài khung giờ.</p></div>
+    <div class="box"><h3>Phụ huynh quyết định</h3><p>AI gợi ý lịch. Phụ huynh có thể đổi yêu cầu và tự quyết định đặt vé.</p></div>
+  </div>
+  <div class="src"><span>Nguồn trong spec.md §4 và eval/run-2.csv (B10)</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">4 · Demo live</div>
+  <h1>1 ca thường + 1 ca khó, lấy từ bộ câu thử</h1>
+  <div class="grid2" style="flex:0">
+    <div class="box">
+      <h3>Ca thường · B01</h3>
+      <p style="font-size:13pt">2 người lớn + bé 6 tuổi (115 cm), 06/12, 09:00–17:00, 3.000.000đ, thích công viên nước, thủy cung, xem show.</p>
+      <pre>09:08–09:38  Thuỷ cung
+09:46–10:16  Hồ bơi tạo sóng
+10:18–10:38  Sông lười
+13:00–13:45  Múa rối nước
+Tổng tiền dự kiến: 800.000 ₫ (vé cổng 590.000 ₫
+  + trò thu phí riêng 210.000 ₫)
+[hanh_vi=xep_lich | vi_pham=0]</pre>
+    </div>
+    <div class="box warn">
+      <h3>Ca khó · B10</h3>
+      <p style="font-size:13pt">2 người lớn + bé 8 tuổi (130 cm), chỉ 10:00–12:30, bắt buộc ≥8 trò và 2 show.</p>
+      <pre>Mình chưa xếp được lịch thoả hết yêu cầu.
+- Trong 150 phút, mình chưa xếp đủ tối thiểu
+  8 trò và 2 show khi tính thời lượng, xếp hàng
+  và di chuyển. Bạn có thể giảm số trò hoặc show
+  bắt buộc, hoặc kéo dài khung giờ.
+[hanh_vi=khong_xep_duoc]</pre>
+    </div>
+  </div>
+  <p class="note" style="margin-top:.15in">Chạy: <b>python run.py</b> · model cx/gpt-6-luna · mạng hỏng → video dự phòng: <a href="https://drive.google.com/file/d/1yR-hEUcjlMEcV1FWzs2mNzCwfEVAX7EM/view?usp=sharing">drive.google.com/file/d/1yR-hEUcjlMEcV1FWzs2mNzCwfEVAX7EM</a></p>
+  <div class="src"><span>Nguồn: eval/benchmark.csv (B01, B10) · output chạy thật trên code lượt 2 (35a6037)</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 5 (nội dung: Hoàng Đăng Kiên) -->
+<section class="slide">
+  <div class="kicker">5 · Đánh giá thế nào</div>
+  <h1>Đánh giá thế nào</h1>
+  <div class="grid2">
+    <div>
+      <h2>Dữ liệu và bộ thử</h2>
+      <ul>
+        <li>Công viên giả lập gồm <b>15 điểm chơi, 4 show</b>, có dữ liệu mưa, đóng điểm và huỷ show.</li>
+        <li><b>25 câu thử</b> gồm 8 thường, 13 khó và 4 từ chối. <b>13/25 câu (52%)</b> lấy từ người dùng hoặc dữ liệu thật.</li>
+      </ul>
+      <h2 style="margin-top:.2in">Cách chấm</h2>
+      <p>Dùng code để kiểm ràng buộc, đối chiếu giá và giờ, kiểm hành vi. Rà thủ công lý do trong cả 25 câu mỗi lượt.</p>
+    </div>
+    <div>
+      <table>
+        <tr><th>Lượt</th><th>Run ID</th><th>Số câu qua</th><th>Chuẩn §7</th></tr>
+        <tr><td>1</td><td style="font-size:12pt">run-1@20261127-234913</td><td class="num">22/25 (88%)</td><td>Chưa đạt</td></tr>
+        <tr><td>2</td><td style="font-size:12pt">run-2@20261128-104450</td><td class="num">23/25 (92%)</td><td>Chưa đạt</td></tr>
+      </table>
+      <ul style="margin-top:.15in">
+        <li><b>Đã cải thiện (B10)</b> — Với yêu cầu 8 trò và 2 show trong 150 phút, hệ thống báo không xếp được và gợi ý nới yêu cầu.</li>
+        <li><b>Còn vướng (B13, B21)</b> — B13 hỏi thêm thay vì từ chối yêu cầu bỏ kiểm tra chiều cao và đổi giá, khiến nhóm từ chối chỉ đạt <b>3/4</b>. B21 viện dẫn mưa sai ngày.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn số liệu · data/DATA_CARD.md · eval/README.md · eval/report.md</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 6 (nội dung: Bùi Xuân Thành) -->
+<section class="slide">
+  <div class="kicker">6 · Chi phí khi dùng thật</div>
+  <h1>Dưới 1 xu Mỹ / người / tháng — chi phí không phải rào cản</h1>
+  <div class="grid2">
+    <div>
+      <h2>Chi phí / task thành công</h2>
+      <p class="note">Đo token trên cx/gpt-6-luna, tính giá 2 mức model, chia tỉ lệ đạt 92% (run-2)</p>
+      <table>
+        <tr><th>Model</th><th>/ phiên</th><th>/ task thành công</th></tr>
+        <tr><td>Rẻ · gemini-3.1-flash-lite</td><td>$0,0024</td><td class="num">$0,0026</td></tr>
+        <tr><td>Mạnh · gemini-4-hydrogen</td><td>$0,0131</td><td class="num">$0,0142</td></tr>
+      </table>
+      <h2 style="margin-top:.22in">So với impact</h2>
+      <p>Pain đo bằng <b>thời gian</b>: ~35' chuẩn bị + ~35' vô ích + lỡ 1–2 show / trò mỗi chuyến. Chi phí vận hành quá nhỏ so với pain này.</p>
+    </div>
+    <div>
+      <h2>3 kịch bản quy mô / tháng</h2>
+      <table>
+        <tr><th>Quy mô (gia đình)</th><th>Rẻ</th><th>Mạnh</th></tr>
+        <tr><td>Thấp · 200</td><td>$0,06</td><td>$0,32</td></tr>
+        <tr><td>Cơ sở · 500</td><td>$0,14</td><td>$0,79</td></tr>
+        <tr><td>Cao · 1.000</td><td>$0,29</td><td>$1,59</td></tr>
+      </table>
+      <p class="note">200 / 500 / 1.000 là <i>(tự ước tính)</i> để xem độ nhạy theo quy mô, không phải dự báo kinh doanh. Mô phỏng 50 phiên, 1/50 lỗi timeout.</p>
+      <div class="box hl" style="margin-top:.15in"><p><b>Kết luận:</b> đáng làm — rào cản thật là 2/25 câu thử lượt 2 còn trượt (B13, B21), sửa trước khi mở rộng.</p></div>
+    </div>
+  </div>
+  <div class="src"><span>Nguồn: cost/cost-estimate.md · cost/simulate-1.csv · cost/personas.yaml · eval/run-2.csv</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">7 · Kết luận</div>
+  <h1><span class="verdict">ITERATE</span>pain có thật, chi phí rẻ, nhưng chưa đạt chuẩn</h1>
+  <table>
+    <tr><th style="width:24%">Câu hỏi</th><th>Trả lời</th><th style="width:8%">Trang</th></tr>
+    <tr><td>Pain có thật không?</td><td><b>Có</b> — 4/4 phỏng vấn, 9/12 khảo sát gặp trẻ không đủ chiều cao; mất 35–120 phút vô ích</td><td>1</td></tr>
+    <tr><td>Bản thử làm đúng không?</td><td>Lượt 1 <b>22/25 (88%)</b> → lượt 2 <b>23/25 (92%)</b> (run-2@20261128-104450). B10 đã sửa; <b>chưa đạt §7</b> vì từ chối 3/4 (B13)</td><td>5</td></tr>
+    <tr><td>Có đáng tiền không?</td><td><b>Có</b> — $0,0026–0,0142 / task thành công, so với ~70 phút mất mỗi chuyến</td><td>6</td></tr>
+  </table>
+  <div class="box" style="margin-top:.28in"><h3>Chưa biết</h3><p>Bao nhiêu % gia đình gặp chuyện này (review lệch 57/60 là 5★) · lịch có sẵn tiết kiệm bao nhiêu phút thật · phụ huynh có chịu nhập chiều cao từng bé không</p></div>
+  <div class="src"><span>Nguồn: trang 1, 5, 6 · evidence/summary.md · eval/report.md · cost/cost-estimate.md</span><span>KKK · Track C1</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker">8 · Nếu có thêm 1 tuần</div>
+  <h1>Sửa đúng 2 lỗi còn trượt, rồi đưa cho phụ huynh thật</h1>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr; flex:0">
+    <div class="box warn"><h3>1 · Chặn vượt quyền chắc hơn</h3><p>B13: tự xưng trưởng ca, đòi bỏ kiểm chiều cao + giảm giá → bị hỏi lại thay vì từ chối. Thử nhiều cách diễn đạt, chặn bằng code như đã làm với thông tin thẻ. <b>Lỗi duy nhất còn làm trượt §7.</b></p></div>
+    <div class="box"><h3>2 · Lý do thời tiết đúng ngày</h3><p>B21 lượt 2 (cùng nhóm B22 lượt 1): nhắc "trời mưa" ngày không có mưa → chỉ cho nhắc mưa khi công cụ thời tiết báo mưa ngày đó.</p></div>
+    <div class="box hl"><h3>3 · Đo ở quy mô lớn hơn</h3><p>Khảo sát đủ ≥20 phụ huynh (hiện 4/20), đọc review 1–3★. 3 phụ huynh trong khảo sát đã đồng ý thử → đo phút tiết kiệm thật và việc nhập chiều cao từng bé.</p></div>
+  </div>
+  <p class="note" style="margin-top:.3in">Ngoài phạm vi: tiền ăn uống — nguyên nhân chính của chi vượt ở P1, P3, P4; bản thử chỉ tính vé cổng + trò thu phí riêng.</p>
+  <div class="src"><span>Nguồn: eval/report.md mục 4 · evidence/summary.md</span><span>KKK · Track C1</span></div>
+</section>
+
+</body>
+</html>
