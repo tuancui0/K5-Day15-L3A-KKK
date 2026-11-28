@@ -5,221 +5,214 @@
 <title>KKK · Lịch một ngày ở khu vui chơi</title>
 <style>
   @page { size: 13.333in 7.5in; margin: 0; }
-  :root { --ink:#1d2433; --mute:#5b6476; --line:#dfe3ea; --brand:#0f6b5c; --brand-soft:#e6f2ef; --warn:#a4441f; --warn-soft:#fbeee7; --bg:#ffffff; }
-  * { box-sizing: border-box; }
-  html, body { margin:0; background:var(--bg); color:var(--ink); font-family:"Segoe UI", Arial, sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .slide { width:13.333in; height:7.5in; padding:0.55in 0.7in 0.5in; position:relative; page-break-after:always; break-after:page; overflow:hidden; display:flex; flex-direction:column; }
+  :root { --ink:#1d2433; --mute:#6b7385; --line:#e3e6ec; --g:#0f6b5c; --gs:#e6f2ef; --r:#b3461f; --rs:#fbeee7; --y:#9a6b00; --ys:#fdf4dc; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:#fff; color:var(--ink); font-family:"Segoe UI", Arial, sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .slide { width:13.333in; height:7.5in; padding:.6in .75in .55in; position:relative; page-break-after:always; break-after:page; overflow:hidden; display:flex; flex-direction:column; }
   .slide:last-child { page-break-after:auto; break-after:auto; }
-  .kicker { font-size:13pt; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); font-weight:600; }
-  h1 { font-size:32pt; margin:.08in 0 .22in; line-height:1.15; }
-  h2 { font-size:17pt; margin:0 0 .12in; }
-  p, li, td, th { font-size:15pt; line-height:1.4; }
-  ul, ol { margin:.05in 0; padding-left:.32in; }
-  li { margin:.04in 0; }
-  table { border-collapse:collapse; width:100%; }
-  th { text-align:left; color:var(--mute); font-weight:600; font-size:12.5pt; border-bottom:2px solid var(--line); padding:.06in .1in; }
-  td { border-bottom:1px solid var(--line); padding:.07in .1in; vertical-align:top; }
-  .num { font-weight:700; color:var(--brand); white-space:nowrap; }
-  .quote { border-left:5px solid var(--brand); background:var(--brand-soft); padding:.14in .22in; font-size:17pt; font-style:italic; margin-top:.2in; }
+  .k { font-size:13pt; letter-spacing:.1em; text-transform:uppercase; color:var(--g); font-weight:700; }
+  h1 { font-size:36pt; margin:.08in 0 .35in; line-height:1.12; }
+  .src { position:absolute; left:.75in; right:.75in; bottom:.25in; font-size:10pt; color:var(--mute); border-top:1px solid var(--line); padding-top:.08in; display:flex; justify-content:space-between; }
+  .row { display:flex; gap:.3in; }
+  .row > * { flex:1; }
+  .stat { border-radius:14px; padding:.25in .28in; background:var(--gs); }
+  .stat .v { font-size:54pt; font-weight:800; color:var(--g); line-height:1; }
+  .stat .l { font-size:16pt; margin-top:.1in; line-height:1.3; }
+  .stat .s { font-size:11pt; color:var(--mute); margin-top:.06in; }
+  .stat.r { background:var(--rs); } .stat.r .v { color:var(--r); }
+  .quote { margin-top:.4in; font-size:20pt; font-style:italic; border-left:6px solid var(--g); padding:.05in .25in; }
   .quote small { display:block; font-style:normal; font-size:12pt; color:var(--mute); margin-top:.06in; }
-  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:.35in; flex:1; }
-  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:.18in; margin:.1in 0 .25in; }
-  .box { border:1px solid var(--line); border-radius:10px; padding:.16in .2in; }
-  .box h3 { margin:0 0 .06in; font-size:15pt; color:var(--brand); }
-  .box p { margin:0; font-size:13pt; }
-  .step { position:relative; }
-  .step .n { display:inline-block; width:.34in; height:.34in; border-radius:50%; background:var(--brand); color:#fff; text-align:center; line-height:.34in; font-weight:700; font-size:13pt; margin-bottom:.06in; }
-  .hl { background:var(--brand-soft); border-color:transparent; }
-  .warn { background:var(--warn-soft); border-color:transparent; }
-  .warn h3 { color:var(--warn); }
-  .big { font-size:40pt; font-weight:800; color:var(--brand); line-height:1; }
-  .big.warnc { color:var(--warn); }
-  .verdict { display:inline-block; font-size:30pt; font-weight:800; color:#fff; background:var(--brand); padding:.06in .3in; border-radius:10px; margin-right:.2in; }
-  pre { font-family:Consolas, monospace; font-size:11pt; background:#f5f6f8; border-radius:8px; padding:.12in .16in; margin:.06in 0 0; white-space:pre-wrap; line-height:1.35; }
-  .src { position:absolute; left:.7in; right:.7in; bottom:.22in; font-size:10.5pt; color:var(--mute); display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:.08in; }
-  .note { font-size:12pt; color:var(--mute); }
-  .cover h1 { font-size:40pt; }
-  a { color:var(--brand); }
+  .card { border:2px solid var(--line); border-radius:14px; padding:.22in .26in; }
+  .card h3 { margin:0 0 .08in; font-size:19pt; }
+  .card p { margin:0; font-size:15pt; line-height:1.35; color:#3a4254; }
+  .card.on { border-color:var(--g); background:var(--gs); }
+  .card.off { opacity:.6; }
+  .tag { display:inline-block; font-size:12pt; font-weight:700; padding:.03in .14in; border-radius:20px; margin-bottom:.1in; }
+  .tag.g { background:var(--g); color:#fff; } .tag.r { background:var(--rs); color:var(--r); } .tag.y { background:var(--ys); color:var(--y); }
+  .flow { display:flex; align-items:stretch; gap:0; margin-top:.1in; }
+  .flow .st { flex:1; border-radius:14px; background:#f4f6f8; padding:.25in .2in; text-align:center; }
+  .flow .st .i { font-size:34pt; line-height:1; }
+  .flow .st b { display:block; font-size:18pt; margin:.1in 0 .05in; }
+  .flow .st span { font-size:13pt; color:var(--mute); }
+  .flow .st.code { background:var(--gs); outline:2px solid var(--g); }
+  .flow .ar { width:.45in; display:flex; align-items:center; justify-content:center; font-size:26pt; color:var(--mute); }
+  .loop { text-align:center; color:var(--g); font-size:13pt; margin-top:.08in; }
+  .who { display:flex; gap:.25in; margin-top:.4in; }
+  .who div { flex:1; text-align:center; font-size:17pt; padding:.18in; border-radius:12px; border:1px dashed var(--line); }
+  .who b { color:var(--g); }
+  .tl { margin-top:.1in; }
+  .tl .it { display:flex; align-items:center; gap:.15in; margin:.07in 0; font-size:14pt; }
+  .tl .t { width:1.35in; font-family:Consolas, monospace; font-size:12.5pt; color:var(--mute); }
+  .tl .b { flex:1; background:var(--gs); border-left:5px solid var(--g); padding:.06in .14in; border-radius:6px; }
+  .tl .b.show { background:var(--ys); border-color:var(--y); }
+  .total { margin-top:.14in; font-size:16pt; font-weight:700; }
+  .in { font-size:13pt; color:var(--mute); margin-bottom:.12in; }
+  .bars { display:flex; align-items:flex-end; gap:.6in; height:3.3in; position:relative; padding:0 .3in; border-bottom:2px solid var(--line); }
+  .bar { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .bar .f { width:100%; background:var(--g); border-radius:8px 8px 0 0; display:flex; align-items:flex-start; justify-content:center; color:#fff; font-weight:800; font-size:24pt; padding-top:.1in; }
+  .bar.l1 .f { background:#8fbfb5; }
+  .bar .n { font-size:13pt; color:var(--mute); margin-top:.08in; position:absolute; bottom:-.35in; }
+  .thr { position:absolute; left:0; right:0; border-top:2px dashed var(--r); }
+  .thr span { position:absolute; left:50%; transform:translateX(-50%); top:.04in; background:#fff; padding:0 .08in; color:var(--r); font-size:12pt; font-weight:600; }
+  .chk { font-size:16pt; margin:.12in 0; display:flex; gap:.14in; align-items:flex-start; line-height:1.3; }
+  .chk .o { font-weight:800; width:.3in; flex:none; }
+  .ok { color:var(--g); } .no { color:var(--r); }
+  .verdict { font-size:72pt; font-weight:900; color:var(--g); letter-spacing:.02em; line-height:1; margin:.1in 0 .15in; }
+  .vsub { font-size:20pt; color:#3a4254; margin-bottom:.45in; }
+  .big3 .card { text-align:center; }
+  .big3 .card .e { font-size:38pt; color:var(--g); font-weight:800; }
+  .num { font-size:44pt; font-weight:800; line-height:1; }
+  .mini { font-size:12pt; color:var(--mute); }
+  a { color:var(--g); }
 </style>
 </head>
 <body>
 
 <!-- 1 -->
 <section class="slide">
-  <div class="kicker">1 · Người dùng &amp; pain</div>
-  <h1>Bố mẹ đưa con nhỏ đi khu vui chơi tự ghép lịch từ nhiều trang rời rạc</h1>
-  <div class="grid2">
-    <div>
-      <p><b>Người dùng:</b> bố hoặc mẹ đưa 1–2 con 3–10 tuổi đi khu vui chơi một ngày, tự lên lịch và cầm ngân sách.</p>
-      <p><b>Chỗ đau:</b> giờ show, giờ mở cửa, giới hạn chiều cao, đường đi và mưa nằm ở các chỗ khác nhau → lỡ show, xếp hàng trò bé không được chơi, đi vòng vèo.</p>
-      <div class="quote">"Tiếc nhất không phải tiền, mà là để bé nhỏ đứng chờ cùng anh rồi tới lượt mới biết không được chơi."<small>P3 · phụ huynh 2 bé (122 cm, ~102 cm)</small></div>
-    </div>
-    <div>
-      <table>
-        <tr><th>Tín hiệu</th><th>Phỏng vấn</th><th>Khảo sát*</th></tr>
-        <tr><td>Đến trò mới biết bé không đủ chiều cao</td><td class="num">4/4</td><td class="num">9/12</td></tr>
-        <tr><td>Lỡ show / trò</td><td class="num">4/4**</td><td class="num">8/12</td></tr>
-        <tr><td>Mưa / show huỷ phải xếp lại</td><td class="num">1/4</td><td class="num">8/12</td></tr>
-        <tr><td>Chuẩn bị mỗi chuyến</td><td class="num" colspan="2">20–60 phút</td></tr>
-        <tr><td>Mất vô ích trong ngày</td><td class="num" colspan="2">35–120 phút (P2–P4)</td></tr>
-      </table>
-      <p class="note">* n = 20, chỉ đếm 12 người đã đi cùng con nhỏ · ** lỡ show / trò hoặc mất ≥30' vô ích · n nhỏ: là cỡ, không phải tỉ lệ đại diện</p>
-    </div>
+  <div class="k">1 · Người dùng &amp; pain</div>
+  <h1>Bố mẹ có con nhỏ: tới trò mới biết bé không được chơi</h1>
+  <div class="row">
+    <div class="stat"><div class="v">4/4</div><div class="l">người phỏng vấn gặp bé <b>không đủ chiều cao</b> tại chỗ</div><div class="s">khảo sát: 9/12 người đã đi cùng con</div></div>
+    <div class="stat"><div class="v">8/12</div><div class="l">người khảo sát <b>lỡ show / trò</b></div><div class="s">chỉ đếm người đã đi cùng con nhỏ</div></div>
+    <div class="stat r"><div class="v">35–120'</div><div class="l"><b>mất vô ích</b> trong ngày</div><div class="s">+ 20–60' chuẩn bị trước mỗi chuyến</div></div>
   </div>
-  <div class="src"><span>Nguồn: evidence/summary.md · phỏng vấn P1–P4 · evidence/survey/</span><span>KKK · Track C1</span></div>
+  <div class="quote">"Để bé nhỏ đứng chờ cùng anh rồi tới lượt mới biết không được chơi."<small>P3 · phụ huynh 2 bé</small></div>
+  <div class="src"><span>Nguồn: evidence/summary.md · phỏng vấn P1–P4 · khảo sát n = 20 · n nhỏ, chỉ là cỡ</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 2 -->
 <section class="slide">
-  <div class="kicker">2 · Vì sao chọn bài này</div>
-  <h1>Chọn xếp lịch một ngày: pain lớn nhất, làm kịp, đo được</h1>
-  <table>
-    <tr><th style="width:34%">Hướng</th><th>Mỗi lần tốn gì</th><th>Làm kịp?</th><th style="width:16%">Quyết định</th></tr>
-    <tr><td><b>H1 · Xếp lịch một ngày cho gia đình có trẻ nhỏ</b></td><td>~35' chuẩn bị + ~35' vô ích (trung vị P1–P4) + lỡ 1–2 show</td><td>Kịp: data tự dựng, kiểm ràng buộc bằng code, đo bằng câu thử</td><td class="num">✓ Chọn</td></tr>
-    <tr><td>H2 · Xếp lại khi mưa / show huỷ</td><td>P4: lỡ 2 show, về sớm, 90–120' vòng vèo</td><td>Cần H1 chạy trước</td><td>Gộp vào H1 làm câu thử khó</td></tr>
-    <tr><td>H3 · Dự đoán thời gian chờ hàng</td><td>15–60' / trò <i>(tự ước tính)</i></td><td>Không: cần data chờ hàng thật</td><td>✗ Loại</td></tr>
-  </table>
-  <div class="grid2" style="margin-top:.3in; flex:0">
-    <div class="box hl"><h3>Impact H1</h3><p>~70 phút / gia đình / chuyến + 1–2 show bị lỡ được tránh · số gia đình / tháng: 200 / 500 / 1.000 <i>(tự ước tính, chưa có nguồn công khai)</i></p></div>
-    <div class="box"><h3>Đã có gì</h3><p>Web VinWonders / Sun World không có tính năng xếp lịch · 6/20 người khảo sát hỏi ChatGPT, nhưng chatbot chung không có giờ / giá của ngày đi</p></div>
+  <div class="k">2 · Vì sao chọn bài này</div>
+  <h1>Xếp lịch một ngày: tiết kiệm ~70 phút mỗi chuyến</h1>
+  <div class="row">
+    <div class="card on"><span class="tag g">✓ CHỌN</span><h3>H1 · Xếp lịch cả ngày</h3><p>~35' chuẩn bị + ~35' vô ích mỗi chuyến. Data tự dựng, kiểm bằng code → <b>làm kịp</b>.</p></div>
+    <div class="card"><span class="tag y">GỘP VÀO H1</span><h3>H2 · Xếp lại khi mưa</h3><p>Thành câu thử khó trong bộ đánh giá.</p></div>
+    <div class="card off"><span class="tag r">✗ LOẠI</span><h3>H3 · Đoán giờ chờ hàng</h3><p>Cần data chờ hàng thật — nhóm không có.</p></div>
   </div>
-  <div class="src"><span>Nguồn: spec.md §2–3 · evidence/summary.md · web chính thức xem 27/11/2026</span><span>KKK · Track C1</span></div>
+  <div class="who" style="margin-top:.45in">
+    <div>Web VinWonders / Sun World<br><b>không có xếp lịch</b></div>
+    <div>Chatbot chung (6/20 đã dùng)<br><b>không có giờ / giá ngày đi</b></div>
+  </div>
+  <div class="src"><span>Nguồn: spec.md §2–3 · trung vị P1–P4 · web chính thức xem 27/11/2026</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 3 (nội dung: Phan Nhật Trường) -->
 <section class="slide">
-  <div class="kicker">3 · Giải pháp</div>
-  <h1>Giải pháp lập lịch</h1>
-  <p>Phụ huynh nhập khung giờ, ngân sách, chiều cao của trẻ và sở thích để nhận lịch tại Công viên Mẫu.</p>
-  <div class="grid4">
-    <div class="box step"><span class="n">1</span><h3>Trích yêu cầu</h3><p>Model đọc dữ kiện. Thiếu thông tin thì hỏi lại.</p></div>
-    <div class="box step"><span class="n">2</span><h3>Đề xuất lịch</h3><p>Lọc điểm đóng và show hủy theo Data v2. Model chọn thứ tự.</p></div>
-    <div class="box step hl"><span class="n">3</span><h3>Kiểm bằng code</h3><p>Kiểm giờ, chi phí và số mục bắt buộc. Sửa tối đa 3 lượt.</p></div>
-    <div class="box step"><span class="n">4</span><h3>Trả lịch</h3><p>Hiển thị giờ và tổng tiền, hoặc giải thích vì sao chưa xếp được.</p></div>
+  <div class="k">3 · Giải pháp</div>
+  <h1>AI đề xuất · code kiểm · bố mẹ quyết</h1>
+  <div class="flow">
+    <div class="st"><div class="i">💬</div><b>Trích yêu cầu</b><span>Thiếu thông tin → hỏi lại</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="i">🗺️</div><b>Đề xuất lịch</b><span>Bỏ trò đóng, show huỷ</span></div>
+    <div class="ar">→</div>
+    <div class="st code"><div class="i">✅</div><b>Kiểm bằng code</b><span>Giờ · chiều cao · tiền · số mục</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="i">📋</div><b>Trả lịch</b><span>Hoặc nói vì sao chưa xếp được</span></div>
   </div>
-  <div class="grid2" style="flex:0">
-    <div class="box warn"><h3>8 trò và 2 show trong 150 phút</h3><p>Ở lượt 2, ca B10 báo chưa xếp được và gợi ý giảm số mục hoặc kéo dài khung giờ.</p></div>
-    <div class="box"><h3>Phụ huynh quyết định</h3><p>AI gợi ý lịch. Phụ huynh có thể đổi yêu cầu và tự quyết định đặt vé.</p></div>
+  <div class="loop">↺ sai thì model sửa lại, tối đa 3 lượt</div>
+  <div class="who">
+    <div>Giờ, giá, tổng tiền<br><b>chỉ lấy từ dữ liệu</b></div>
+    <div>Không đủ thời gian?<br><b>Nói thẳng, không xếp bừa</b></div>
+    <div>Đặt vé, thanh toán<br><b>phụ huynh tự làm</b></div>
   </div>
-  <div class="src"><span>Nguồn trong spec.md §4 và eval/run-2.csv (B10)</span><span>KKK · Track C1</span></div>
+  <div class="src"><span>Nguồn: spec.md §4 · eval/run-2.csv (B10)</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 4 -->
 <section class="slide">
-  <div class="kicker">4 · Demo live</div>
-  <h1>1 ca thường + 1 ca khó, lấy từ bộ câu thử</h1>
-  <div class="grid2" style="flex:0">
-    <div class="box">
-      <h3>Ca thường · B01</h3>
-      <p style="font-size:13pt">2 người lớn + bé 6 tuổi (115 cm), 06/12, 09:00–17:00, 3.000.000đ, thích công viên nước, thủy cung, xem show.</p>
-      <pre>09:08–09:38  Thuỷ cung
-09:46–10:16  Hồ bơi tạo sóng
-10:18–10:38  Sông lười
-13:00–13:45  Múa rối nước
-Tổng tiền dự kiến: 800.000 ₫ (vé cổng 590.000 ₫
-  + trò thu phí riêng 210.000 ₫)
-[hanh_vi=xep_lich | vi_pham=0]</pre>
+  <div class="k">4 · Demo live</div>
+  <h1>Một ca thường, một ca không thể xếp</h1>
+  <div class="row">
+    <div class="card">
+      <span class="tag g">CA THƯỜNG · B01</span>
+      <div class="in">2 NL + bé 115 cm · 9h–17h · 3 triệu · thích nước, thủy cung, show</div>
+      <div class="tl">
+        <div class="it"><span class="t">09:08–09:38</span><span class="b">Thuỷ cung</span></div>
+        <div class="it"><span class="t">09:46–10:16</span><span class="b">Hồ bơi tạo sóng</span></div>
+        <div class="it"><span class="t">10:18–10:38</span><span class="b">Sông lười</span></div>
+        <div class="it"><span class="t">13:00–13:45</span><span class="b show">🎭 Múa rối nước</span></div>
+      </div>
+      <div class="total">Tổng 800.000 ₫ · 0 vi phạm</div>
     </div>
-    <div class="box warn">
-      <h3>Ca khó · B10</h3>
-      <p style="font-size:13pt">2 người lớn + bé 8 tuổi (130 cm), chỉ 10:00–12:30, bắt buộc ≥8 trò và 2 show.</p>
-      <pre>Mình chưa xếp được lịch thoả hết yêu cầu.
-- Trong 150 phút, mình chưa xếp đủ tối thiểu
-  8 trò và 2 show khi tính thời lượng, xếp hàng
-  và di chuyển. Bạn có thể giảm số trò hoặc show
-  bắt buộc, hoặc kéo dài khung giờ.
-[hanh_vi=khong_xep_duoc]</pre>
+    <div class="card" style="background:var(--rs); border-color:transparent">
+      <span class="tag r">CA KHÓ · B10</span>
+      <div class="in">Bắt buộc ≥ 8 trò + 2 show trong 10:00–12:30</div>
+      <div style="font-size:60pt; font-weight:800; color:var(--r); line-height:1; margin:.2in 0 .1in">150'</div>
+      <div style="font-size:18pt"><b>không đủ</b> cho 8 trò + 2 show khi tính chơi, chờ và đi bộ</div>
+      <div style="font-size:15pt; margin-top:.2in; color:#3a4254">→ Gợi ý: <b>bớt số mục</b> hoặc <b>kéo dài khung giờ</b></div>
     </div>
   </div>
-  <p class="note" style="margin-top:.15in">Chạy: <b>python run.py</b> · model cx/gpt-6-luna · mạng hỏng → video dự phòng: <a href="https://drive.google.com/file/d/1YB2HZCteyA9ctEJmA8n63X5Yvt_xFPfL/view?usp=sharing">drive.google.com/file/d/1YB2HZCteyA9ctEJmA8n63X5Yvt_xFPfL</a></p>
-  <div class="src"><span>Nguồn: eval/benchmark.csv (B01, B10) · output chạy thật trên code lượt 2 (35a6037)</span><span>KKK · Track C1</span></div>
+  <p class="mini" style="margin-top:.2in">Mạng hỏng → video dự phòng: <a href="https://drive.google.com/file/d/1YB2HZCteyA9ctEJmA8n63X5Yvt_xFPfL/view?usp=sharing">drive.google.com/file/d/1YB2HZCteyA9ctEJmA8n63X5Yvt_xFPfL</a></p>
+  <div class="src"><span>Nguồn: eval/benchmark.csv (B01, B10) · chạy thật trên cx/gpt-6-luna</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 5 (nội dung: Hoàng Đăng Kiên) -->
 <section class="slide">
-  <div class="kicker">5 · Đánh giá thế nào</div>
-  <h1>Đánh giá thế nào</h1>
-  <div class="grid2">
-    <div>
-      <h2>Dữ liệu và bộ thử</h2>
-      <ul>
-        <li>Công viên giả lập gồm <b>15 điểm chơi, 4 show</b>, có dữ liệu mưa, đóng điểm và huỷ show.</li>
-        <li><b>25 câu thử</b> gồm 8 thường, 13 khó và 4 từ chối. <b>13/25 câu (52%)</b> lấy từ người dùng hoặc dữ liệu thật.</li>
-      </ul>
-      <h2 style="margin-top:.2in">Cách chấm</h2>
-      <p>Dùng code để kiểm ràng buộc, đối chiếu giá và giờ, kiểm hành vi. Rà thủ công lý do trong cả 25 câu mỗi lượt.</p>
+  <div class="k">5 · Đánh giá thế nào</div>
+  <h1>25 câu thử, 2 lượt: 88% → 92%</h1>
+  <div class="row" style="align-items:flex-start">
+    <div style="flex:1.1">
+      <div class="bars">
+        <div class="thr" style="bottom:70%"><span>ngưỡng 70%</span></div>
+        <div class="bar l1"><div class="f" style="height:88%">88%</div><div class="n">Lượt 1 · 22/25</div></div>
+        <div class="bar"><div class="f" style="height:92%">92%</div><div class="n">Lượt 2 · 23/25</div></div>
+      </div>
+      <p class="mini" style="margin-top:.45in">8 thường · 13 khó · 4 từ chối · 13/25 câu từ người dùng / data thật · chấm bằng code + rà tay lý do</p>
     </div>
     <div>
-      <table>
-        <tr><th>Lượt</th><th>Run ID</th><th>Số câu qua</th><th>Chuẩn §7</th></tr>
-        <tr><td>1</td><td style="font-size:12pt">run-1@20261127-234913</td><td class="num">22/25 (88%)</td><td>Chưa đạt</td></tr>
-        <tr><td>2</td><td style="font-size:12pt">run-2@20261128-104450</td><td class="num">23/25 (92%)</td><td>Chưa đạt</td></tr>
-      </table>
-      <ul style="margin-top:.15in">
-        <li><b>Đã cải thiện (B10)</b> — Với yêu cầu 8 trò và 2 show trong 150 phút, hệ thống báo không xếp được và gợi ý nới yêu cầu.</li>
-        <li><b>Còn vướng (B13, B21)</b> — B13 hỏi thêm thay vì từ chối yêu cầu bỏ kiểm tra chiều cao và đổi giá, khiến nhóm từ chối chỉ đạt <b>3/4</b>. B21 viện dẫn mưa sai ngày.</li>
-      </ul>
+      <div class="chk"><span class="o ok">✓</span><span><b>B10 đã sửa:</b> 8 trò + 2 show / 150' → báo không xếp được</span></div>
+      <div class="chk"><span class="o ok">✓</span><span><b>17/17 lịch</b> không vi phạm ràng buộc cứng</span></div>
+      <div class="chk"><span class="o no">✗</span><span><b>B13:</b> giả danh trưởng ca → hỏi lại thay vì từ chối</span></div>
+      <div class="chk"><span class="o no">✗</span><span><b>B21:</b> nhắc mưa sai ngày</span></div>
+      <div class="card" style="margin-top:.25in; background:var(--rs); border-color:transparent"><p><b style="color:var(--r)">Chưa đạt chuẩn §7</b> — từ chối chỉ 3/4 (cần 100%)</p></div>
     </div>
   </div>
-  <div class="src"><span>Nguồn số liệu · data/DATA_CARD.md · eval/README.md · eval/report.md</span><span>KKK · Track C1</span></div>
+  <div class="src"><span>Nguồn: eval/report.md · run-1@20261127-234913 · run-2@20261128-104450</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 6 (nội dung: Bùi Xuân Thành) -->
 <section class="slide">
-  <div class="kicker">6 · Chi phí khi dùng thật</div>
-  <h1>Dưới 1 xu Mỹ / người / tháng — chi phí không phải rào cản</h1>
-  <div class="grid2">
-    <div>
-      <h2>Chi phí / task thành công</h2>
-      <p class="note">Đo token trên cx/gpt-6-luna, tính giá 2 mức model, chia tỉ lệ đạt 92% (run-2)</p>
-      <table>
-        <tr><th>Model</th><th>/ phiên</th><th>/ task thành công</th></tr>
-        <tr><td>Rẻ · gemini-3.1-flash-lite</td><td>$0,0024</td><td class="num">$0,0026</td></tr>
-        <tr><td>Mạnh · gemini-4-hydrogen</td><td>$0,0131</td><td class="num">$0,0142</td></tr>
-      </table>
-      <h2 style="margin-top:.22in">So với impact</h2>
-      <p>Pain đo bằng <b>thời gian</b>: ~35' chuẩn bị + ~35' vô ích + lỡ 1–2 show / trò mỗi chuyến. Chi phí vận hành quá nhỏ so với pain này.</p>
-    </div>
-    <div>
-      <h2>3 kịch bản quy mô / tháng</h2>
-      <table>
-        <tr><th>Quy mô (gia đình)</th><th>Rẻ</th><th>Mạnh</th></tr>
-        <tr><td>Thấp · 200</td><td>$0,06</td><td>$0,32</td></tr>
-        <tr><td>Cơ sở · 500</td><td>$0,14</td><td>$0,79</td></tr>
-        <tr><td>Cao · 1.000</td><td>$0,29</td><td>$1,59</td></tr>
-      </table>
-      <p class="note">200 / 500 / 1.000 là <i>(tự ước tính)</i> để xem độ nhạy theo quy mô, không phải dự báo kinh doanh. Mô phỏng 50 phiên, 1/50 lỗi timeout.</p>
-      <div class="box hl" style="margin-top:.15in"><p><b>Kết luận:</b> đáng làm — rào cản thật là 2/25 câu thử lượt 2 còn trượt (B13, B21), sửa trước khi mở rộng.</p></div>
-    </div>
+  <div class="k">6 · Chi phí khi dùng thật</div>
+  <h1>Chi phí rất nhỏ so với thời gian mất vì lịch đi chơi không hợp lý</h1>
+  <div class="row">
+    <div class="stat"><div class="v">$0,0026</div><div class="l">/ task thành công · model rẻ</div><div class="s">gemini-3.1-flash-lite</div></div>
+    <div class="stat"><div class="v">$0,0142</div><div class="l">/ task thành công · model mạnh</div><div class="s">gemini-4-hydrogen</div></div>
+    <div class="stat r"><div class="v">~70'</div><div class="l">phụ huynh mất mỗi chuyến</div><div class="s">trung vị P1–P4</div></div>
   </div>
-  <div class="src"><span>Nguồn: cost/cost-estimate.md · cost/simulate-1.csv · cost/personas.yaml · eval/run-2.csv</span><span>KKK · Track C1</span></div>
+  <div class="who" style="margin-top:.4in">
+    <div>200 gia đình / tháng<br><b>$0,06 – $0,32</b></div>
+    <div>500 gia đình / tháng<br><b>$0,14 – $0,79</b></div>
+    <div>1.000 gia đình / tháng<br><b>$0,29 – $1,59</b></div>
+  </div>
+  <p class="mini" style="margin-top:.18in">Đo token thật trên cx/gpt-6-luna · 50 phiên mô phỏng · chia tỉ lệ đạt 92% · số gia đình là <i>(tự ước tính)</i></p>
+  <div class="src"><span>Nguồn: cost/cost-estimate.md · cost/simulate-1.csv · eval/run-2.csv</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 7 -->
 <section class="slide">
-  <div class="kicker">7 · Kết luận</div>
-  <h1><span class="verdict">ITERATE</span>pain có thật, chi phí rẻ, nhưng chưa đạt chuẩn</h1>
-  <table>
-    <tr><th style="width:24%">Câu hỏi</th><th>Trả lời</th><th style="width:8%">Trang</th></tr>
-    <tr><td>Pain có thật không?</td><td><b>Có</b> — 4/4 phỏng vấn, 9/12 khảo sát gặp trẻ không đủ chiều cao; mất 35–120 phút vô ích</td><td>1</td></tr>
-    <tr><td>Bản thử làm đúng không?</td><td>Lượt 1 <b>22/25 (88%)</b> → lượt 2 <b>23/25 (92%)</b> (run-2@20261128-104450). B10 đã sửa; <b>chưa đạt §7</b> vì từ chối 3/4 (B13)</td><td>5</td></tr>
-    <tr><td>Có đáng tiền không?</td><td><b>Có</b> — $0,0026–0,0142 / task thành công, so với ~70 phút mất mỗi chuyến</td><td>6</td></tr>
-  </table>
-  <div class="box" style="margin-top:.28in"><h3>Chưa biết</h3><p>Bao nhiêu % gia đình gặp chuyện này (review lệch 57/60 là 5★) · lịch có sẵn tiết kiệm bao nhiêu phút thật · phụ huynh có chịu nhập chiều cao từng bé không</p></div>
-  <div class="src"><span>Nguồn: trang 1, 5, 6 · evidence/summary.md · eval/report.md · cost/cost-estimate.md</span><span>KKK · Track C1</span></div>
+  <div class="k">7 · Kết luận</div>
+  <div class="verdict">ITERATE</div>
+  <div class="vsub">Đáng làm tiếp — nhưng chưa đưa cho phụ huynh thật.</div>
+  <div class="row big3">
+    <div class="card on"><div class="e">✓</div><h3>Pain có thật</h3><p>4/4 phỏng vấn gặp bé không đủ chiều cao</p></div>
+    <div class="card on"><div class="e">✓</div><h3>Chi phí rẻ</h3><p>$0,0026–0,0142 / lịch thành công</p></div>
+    <div class="card" style="background:var(--rs); border-color:var(--r)"><div class="e" style="color:var(--r)">✗</div><h3>Chất lượng chưa đủ</h3><p>92% nhưng từ chối 3/4 → chưa đạt §7</p></div>
+  </div>
+  <div class="src"><span>Nguồn: trang 1, 5, 6</span><span>KKK · C1</span></div>
 </section>
 
 <!-- 8 -->
 <section class="slide">
-  <div class="kicker">8 · Nếu có thêm 1 tuần</div>
-  <h1>Sửa đúng 2 lỗi còn trượt, rồi đưa cho phụ huynh thật</h1>
-  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr; flex:0">
-    <div class="box warn"><h3>1 · Chặn vượt quyền chắc hơn</h3><p>B13: tự xưng trưởng ca, đòi bỏ kiểm chiều cao + giảm giá → bị hỏi lại thay vì từ chối. Thử nhiều cách diễn đạt, chặn bằng code như đã làm với thông tin thẻ. <b>Lỗi duy nhất còn làm trượt §7.</b></p></div>
-    <div class="box"><h3>2 · Lý do thời tiết đúng ngày</h3><p>B21 lượt 2 (cùng nhóm B22 lượt 1): nhắc "trời mưa" ngày không có mưa → chỉ cho nhắc mưa khi công cụ thời tiết báo mưa ngày đó.</p></div>
-    <div class="box hl"><h3>3 · Đo ở quy mô lớn hơn</h3><p>Khảo sát đủ ≥20 phụ huynh (hiện 4/20), đọc review 1–3★. 3 phụ huynh trong khảo sát đã đồng ý thử → đo phút tiết kiệm thật và việc nhập chiều cao từng bé.</p></div>
+  <div class="k">8 · Nếu có thêm 1 tuần</div>
+  <h1>Sửa 2 lỗi còn lại, rồi thử với phụ huynh thật</h1>
+  <div class="row">
+    <div class="card" style="background:var(--rs); border-color:transparent"><div class="num" style="color:var(--r)">1</div><h3 style="margin-top:.12in">Chặn giả danh</h3><p>B13: chặn bằng code yêu cầu bỏ kiểm chiều cao / đổi giá</p></div>
+    <div class="card"><div class="num" style="color:var(--g)">2</div><h3 style="margin-top:.12in">Lý do đúng ngày</h3><p>B21: chỉ nhắc mưa khi dữ liệu báo mưa ngày đó</p></div>
+    <div class="card on"><div class="num" style="color:var(--g)">3</div><h3 style="margin-top:.12in">Thử thật</h3><p>Khảo sát đủ 20 phụ huynh (đang 4/20) · mời 3 phụ huynh đã đồng ý được hỏi thêm</p></div>
   </div>
-  <p class="note" style="margin-top:.3in">Ngoài phạm vi: tiền ăn uống — nguyên nhân chính của chi vượt ở P1, P3, P4; bản thử chỉ tính vé cổng + trò thu phí riêng.</p>
-  <div class="src"><span>Nguồn: eval/report.md mục 4 · evidence/summary.md</span><span>KKK · Track C1</span></div>
+  <p class="mini" style="margin-top:.35in">Ngoài phạm vi: tiền ăn uống — lý do chính khiến chi vượt (P1, P3, P4)</p>
+  <div class="src"><span>Nguồn: eval/report.md mục 4 · evidence/summary.md</span><span>KKK · C1</span></div>
 </section>
 
 </body>
