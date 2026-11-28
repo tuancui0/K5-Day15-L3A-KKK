@@ -39,6 +39,10 @@ Chỉ trả một đối tượng JSON với các khóa:
   tên, kể cả tên lạ. "Trò nước", "xem show", "trò trong nhà" là sở thích chung, không phải tên riêng.
 - chi_muc_goi_ten: true chỉ khi khách giới hạn lịch vào các mục gọi tên và nói không muốn đổi
   hoặc thêm mục khác. "Ưu tiên", "muốn", "nhất định muốn" đứng riêng không có nghĩa cấm gợi ý thay thế.
+- so_luong_toi_thieu: đối tượng {"diem": số nguyên không âm, "show": số nguyên không âm}.
+  Chép số tối thiểu của từng nhóm khi khách nói bắt buộc, phải đủ hoặc ít nhất. Nếu một yêu cầu
+  bắt buộc liệt kê cả số trò và số show thì giữ cả hai số. Dùng 0 cho nhóm không có mức tối thiểu
+  bắt buộc. Số người, số giờ và số lượng chỉ nêu như sở thích không phải số lượng bắt buộc.
 - ngoai_pham_vi: null cho yêu cầu lập lịch thông thường, "giao_dich" cho yêu cầu thực hiện
   đặt/mua/hoàn vé hoặc thanh toán, "du_lieu_nhay_cam" cho yêu cầu liên quan tới thông tin
   đăng nhập/thanh toán, "khac" cho yêu cầu ngoài phạm vi hoặc vượt quyền.
@@ -92,7 +96,8 @@ def _chuan_ten(value):
 def _doc_rang_buoc(data, text):
     fields = {
         "ngay", "gio_bat_dau", "gio_ket_thuc", "nguoi_lon", "tre_em",
-        "ngan_sach", "so_thich", "muc_goi_ten", "chi_muc_goi_ten", "ngoai_pham_vi",
+        "ngan_sach", "so_thich", "muc_goi_ten", "chi_muc_goi_ten", "so_luong_toi_thieu",
+        "ngoai_pham_vi",
     }
     if not isinstance(data, dict) or not fields.issubset(data):
         raise ValueError("Thiếu khóa ràng buộc.")
@@ -115,6 +120,14 @@ def _doc_rang_buoc(data, text):
     so_thich = data["so_thich"]
     if not isinstance(so_thich, list) or any(not isinstance(muc, str) for muc in so_thich):
         raise ValueError("Danh sách sở thích không đúng cấu trúc.")
+
+    muc_toi_thieu = data["so_luong_toi_thieu"]
+    if (
+        not isinstance(muc_toi_thieu, dict)
+        or muc_toi_thieu.keys() != {"diem", "show"}
+        or any(_so_nguyen(so) is None for so in muc_toi_thieu.values())
+    ):
+        raise ValueError("Số lượng tối thiểu không đúng cấu trúc.")
 
     muc_goi_ten = data["muc_goi_ten"]
     chi_muc_goi_ten = data["chi_muc_goi_ten"]
@@ -154,6 +167,7 @@ def _doc_rang_buoc(data, text):
         "nguoi_lon": nguoi_lon, "tre_em": tre, "ngan_sach": ngan_sach,
         "so_thich": [muc.strip() for muc in so_thich if muc.strip()],
         "muc_goi_ten": list(ten_dung.values()), "chi_muc_goi_ten": chi_muc_goi_ten,
+        "so_luong_toi_thieu": muc_toi_thieu,
         "thieu": thieu, "ngoai_pham_vi": _NGOAI_PHAM_VI.get(ngoai_pham_vi),
     }
 
@@ -177,7 +191,10 @@ như chỉ chơi trong nhà hoặc chỉ xem một suất cụ thể. Ưu tiên 
 Nếu mục ưu tiên vắng mặt và khách chấp nhận đổi, chọn ít nhất một mục gần sở thích từ du_lieu.
 Coi tên không có dữ liệu là không thể xếp, giữ nguyên các yêu cầu còn khả thi.
 Code hiển thị thong_bao_da_kiem, nên chỉ dùng mục này để chọn phương án.
-Chỉ trả [] khi không có mục phù hợp với các ràng buộc hoặc khách đã loại mọi phương án thay thế.
+Chỉ áp mức tối thiểu cho từng trường diem hoặc show có giá trị lớn hơn 0 trong
+rang_buoc.so_luong_toi_thieu. Giá trị 0 nghĩa là số lượng linh hoạt. Mỗi mã chỉ tính một lần,
+kể cả show có nhiều suất. Nếu cả hai giá trị bằng 0 và còn mục hợp lệ với hạn chế của khách,
+chọn ít nhất một mục phù hợp. Trả [] khi không có mục phù hợp hoặc không thể đủ mức tối thiểu bắt buộc.
 Ưu tiên điểm trong nhà khi mưa, tránh các suất ngoài trời bị hủy, ưu tiên các điểm gần nhau
 và chừa đủ thời gian trước suất show cố định. Sân khấu có thời lượng 0 chỉ là địa điểm của show.
 Phần mềm sẽ tính giờ đến, giờ kết thúc, thời gian đi bộ, chờ và chi phí. Không trả những số này,
@@ -281,6 +298,46 @@ def _lap_gio(phuong_an, rang_buoc, diem, show, thoi_tiet):
     return lich
 
 
+def loi_so_luong_toi_thieu(lich, rang_buoc):
+    """Lý do cần nới số lượng nếu lịch thiếu số trò hoặc số show bắt buộc."""
+    yeu_cau = rang_buoc.get("so_luong_toi_thieu", {})
+    so_diem, so_show = yeu_cau.get("diem", 0), yeu_cau.get("show", 0)
+    co_diem = len({muc["diem_id"] for muc in lich if "diem_id" in muc})
+    co_show = len({muc["show_id"] for muc in lich if "show_id" in muc})
+    if co_diem >= so_diem and co_show >= so_show:
+        return []
+
+    can = []
+    if so_diem:
+        can.append(f"{so_diem} trò")
+    if so_show:
+        can.append(f"{so_show} show")
+    phut = _phut(rang_buoc["gio_ket_thuc"]) - _phut(rang_buoc["gio_bat_dau"])
+    return [{
+        "loai": "khong_kip_di",
+        "chi_tiet": (
+            f"Trong {phut} phút, mình chưa xếp đủ tối thiểu {' và '.join(can)} "
+            "khi tính thời lượng, xếp hàng và di chuyển. "
+            "Bạn có thể giảm số trò hoặc show bắt buộc, hoặc kéo dài khung giờ."
+        ),
+    }]
+
+
+def _du_so_muc_va_thoi_luong(diem, show, rang_buoc):
+    """Dùng cận dưới thời lượng để loại yêu cầu chắc chắn không thể đủ số lượng."""
+    yeu_cau = rang_buoc.get("so_luong_toi_thieu", {})
+    so_diem, so_show = yeu_cau.get("diem", 0), yeu_cau.get("show", 0)
+    if not so_diem and not so_show:
+        return True
+    if so_diem > len(diem) or so_show > len(show):
+        return False
+
+    phut_diem = sorted(muc["thoi_luong_phut"] + muc["cho_doi_phut"] for muc in diem.values())
+    phut_show = sorted(muc["thoi_luong_phut"] for muc in show.values())
+    gioi_han = _phut(rang_buoc["gio_ket_thuc"]) - _phut(rang_buoc["gio_bat_dau"])
+    return sum(phut_diem[:so_diem]) + sum(phut_show[:so_show]) <= gioi_han
+
+
 def _chon_lich(prompt, rang_buoc, du_lieu, **thong_tin_sua):
     diem = {muc["id"]: muc for muc in du_lieu["diem"]}
     show = {muc["id"]: muc for muc in du_lieu["show"]}
@@ -313,6 +370,9 @@ def _chon_lich(prompt, rang_buoc, du_lieu, **thong_tin_sua):
         gio = [suat for suat in muc["gio"] if xep_duoc({"show_id": ma, "suat": suat})]
         if gio:
             show_kha_thi[ma] = dict(muc, gio=gio)
+
+    if not _du_so_muc_va_thoi_luong(diem_kha_thi, show_kha_thi, rang_buoc):
+        return []
 
     thong_bao = []
     for ten, ma in ten_khach.items():
@@ -351,10 +411,23 @@ def _chon_lich(prompt, rang_buoc, du_lieu, **thong_tin_sua):
         "ngan_sach_sau_ve_cong": rang_buoc["ngan_sach"] - ve_cong,
         **thong_tin_sua,
     }
-    phuong_an = _goi_json(
-        prompt, payload, lambda data: _doc_phuong_an(data, diem_kha_thi, show_kha_thi)
-    )
+    def doc_phuong_an(data):
+        return _doc_phuong_an(data, diem_kha_thi, show_kha_thi)
+
+    phuong_an = _goi_json(prompt, payload, doc_phuong_an)
     lich = _lap_gio(phuong_an, rang_buoc, diem, show, thoi_tiet)
+    loi = loi_so_luong_toi_thieu(lich, rang_buoc)
+    if loi:
+        payload["lich_chua_du_so_luong"] = lich
+        payload["loi_so_luong"] = loi
+        phuong_an = _goi_json(
+            prompt + "\nLịch vừa đề xuất chưa đủ số lượng bắt buộc. Hãy thử thứ tự hoặc các mục khác.",
+            payload,
+            doc_phuong_an,
+        )
+        lich = _lap_gio(phuong_an, rang_buoc, diem, show, thoi_tiet)
+        if loi_so_luong_toi_thieu(lich, rang_buoc):
+            return []
     if lich and thong_bao:
         lich[0]["ly_do"] += "\n" + " ".join(thong_bao)
     return lich
