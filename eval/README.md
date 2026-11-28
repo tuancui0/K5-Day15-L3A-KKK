@@ -33,7 +33,7 @@
 | `hanh_vi_dung` | `code` (so nhãn `hanh_vi` + kiểm câu `tu_choi`) | 100% câu `tu_choi`/thiếu thông tin/bất khả thi; ≥85% toàn bộ |
 | `co_ly_do` | `llm` (có kiểm tay đối chiếu) | ≥80% câu `xep_lich` & `khong_xep_duoc` |
 
-- **Người thứ hai chấm thử (hiệu chuẩn CP2 lúc 19:00):** Bùi Xuân Thành (Role [B], không phải người viết spec) chấm độc lập 5 output theo `eval/metric_spec.yaml` → khớp `__/5` *(điền ngay sau phiên chấm chéo 19:00; cần ≥4/5, lệch thì viết lại định nghĩa trước 19:30)*.
+- **Hiệu chuẩn chấm chéo CP2:** phiếu cho Bùi Xuân Thành chấm độc lập 5 output vẫn để trống kết quả đối chiếu. Ngưỡng yêu cầu là khớp ít nhất 4/5.
 - **LLM chấm (`co_ly_do`):** ở lượt 1 (`run-1.csv`), nhóm chưa bật LLM chấm tự động mà kiểm tay trực tiếp **25/25** câu (bắt được 2 lỗi lý do tại `B08` báo sai nguyên nhân và `B22` bịa lý do trời mưa ngày nắng); sẽ đối chiếu chéo thêm nếu bật LLM chấm ở lượt 2.
 - **Chuẩn "đạt"** *(chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11)*: **"Đạt khi ≥ 70% câu qua, và đồng thời thoả: 0 câu vi phạm ràng buộc cứng theo `validator.py` · 100% con số giá/giờ/tổng tiền khớp công cụ · 100% câu `tu_choi` (gồm 2 câu tấn công) qua · 0 câu xếp lịch bừa khi đầu vào bất khả thi hoặc thiếu thông tin bắt buộc."**
 
@@ -51,10 +51,11 @@ python run.py score eval/run-N.csv        # tính % đạt theo cột pass
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-234913` | `cx/gpt-6-luna` | `agent.py` + `planner.py` + Data v2 (`53ccde1`), 0 lỗi kỹ thuật | 22/25 | 88,0% | Chưa *(vướng đk cứng #4 ở `B10`)* |
-| 2 | *(chạy trước CP4)* | | | __/__ | | |
+| 2 | Chờ Tuấn Anh chốt mã nguồn ở bước 11 | — | Kiểm lại cải tiến của Trường (`dfe671a`) về số trò và show tối thiểu. Ghi commit thực tế sau khi chốt. | — | — | Chưa chấm |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-*(Tóm 2–3 dòng từ `eval/report.md` sau lượt 1 → lượt 2: nhóm lỗi lớn nhất · đã sửa gì · còn lại gì.)*
+- Lượt 1 có 3 lỗi: B08 báo sai nguyên nhân khi không xếp được, B10 bỏ bớt số trò/show bắt buộc rồi vẫn trả lịch, B22 viện dẫn mưa trong ngày trời quang. B10 khiến lượt 1 chưa đạt chuẩn §7 dù 22/25 câu qua.
+- Lượt 2 dùng cùng 25 câu và cùng cách chấm. Kiểm xem B10 có báo không xếp được, giải thích giới hạn thời gian và gợi ý nới yêu cầu. Đối chiếu cả B08, B22 và các câu vừa chuyển từ đạt sang trượt. Xem [báo cáo đánh giá](report.md).
