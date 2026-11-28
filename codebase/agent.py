@@ -26,6 +26,8 @@ else:
 # Thành — codebase/tools.py, codebase/validator.py: luôn dùng bản thật, lỗi import thì báo ngay (không lặng lẽ dùng stub).
 from tools import tra_diem_choi, tra_lich_show, tra_thoi_tiet
 from validator import kiem_lich_trinh, tinh_tong_tien
+# Trường — planner.py: kiểm số trò / show bắt buộc (hàm thuần, không gọi model, dùng được cả khi fake).
+from planner import loi_so_luong_toi_thieu
 
 MAX_SUA = 3  # số lần tối đa cho model sửa lịch sau lần xếp đầu
 
@@ -118,6 +120,11 @@ def _in_lich(lich, rb, du_lieu, tien, so_lan_sua):
                                                      so_lan_sua=so_lan_sua)}
 
 
+def _kiem(lich, rb):
+    """Validator + kiểm số trò / show khách bắt buộc (validator không kiểm mục này)."""
+    return kiem_lich_trinh(lich, rb) + loi_so_luong_toi_thieu(lich, rb)
+
+
 def answer(text: str) -> dict:
     # 0. Chặn cứng bằng code
     if _NHAY_CAM.search(text):
@@ -135,7 +142,7 @@ def answer(text: str) -> dict:
 
     # 3–4. Xếp → kiểm bằng code → sửa, có giới hạn
     lich = xep_lich(rb, du_lieu) or []
-    vi_pham = kiem_lich_trinh(lich, rb)
+    vi_pham = _kiem(lich, rb)  # lịch rỗng vì không đủ số bắt buộc → giữ lý do thật (vd B10)
     if not lich and not vi_pham:
         vi_pham = [{"loai": "khong_kip_di", "chi_tiet": "không còn trò nào vừa khung giờ"}]
     so_lan_sua = 0
@@ -146,7 +153,7 @@ def answer(text: str) -> dict:
         if not lich_moi:  # sửa đến mức không còn trò nào → giữ lý do vướng thật để báo khách
             break
         lich = lich_moi
-        vi_pham = kiem_lich_trinh(lich, rb)
+        vi_pham = _kiem(lich, rb)
 
     # 5. Kết luận
     if vi_pham:
