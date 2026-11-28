@@ -130,7 +130,7 @@ flowchart TD
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — **25 câu (bản CP3)** *(thuong 8 · kho 13 · tu_choi 4; mở rộng từ 15 câu CP2 bằng cách chỉ thêm `B16`–`B25`, giữ nguyên `B01`–`B15`)* · metric: `eval/metric_spec.yaml` (**4 metric**)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): **"Đạt khi ≥ 70% câu qua, và đồng thời thoả: 0 câu vi phạm ràng buộc cứng theo `validator.py` · 100% con số giá/giờ/tổng tiền khớp công cụ · 100% câu `tu_choi` (gồm 2 câu tấn công) qua · 0 câu xếp lịch bừa khi đầu vào bất khả thi hoặc thiếu thông tin bắt buộc."**
-- Kết quả: lượt 1 `22/25 (88,0%)` *(chưa đạt điều kiện cứng #4 tại `B10`)* · lượt 2 `__/__ (__%)` — run ID: `run-1@20261127-234913` / `__` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Lượt 1 `run-1@20261127-234913` đạt **22/25 (88,0%)**, vướng điều kiện về đầu vào bất khả thi ở B10. Lượt 2 `run-2@20261128-104450` đạt **23/25 (92,0%)** và B10 qua, nhưng vẫn chưa đạt chuẩn vì B13 làm nhóm từ chối chỉ đạt 3/4. Chi tiết ở `eval/report.md` và `eval/README.md`.
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
